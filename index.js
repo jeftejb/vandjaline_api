@@ -20,10 +20,10 @@ dotenv.config();
 
 app.use(express.json());
 app.use((req, res, next)=>{
-    res.setHeader("Access-Control-Allow-Origin","http://localhost:3000, https://vandjaline.herokuapp.com");
-    res.setHeader("Access-Control-Allow-Methods", "GET, PUT, OPTIONS, POST, DELETE, UPDATE");
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');// res.header("Access-Control-Allow-Headers", "*, Authorization");
-    res.setHeader('Access-Control-Allow-Credentials', true);
+    res.header("Access-Control-Allow-Origin","http://localhost:3000, https://vandjaline.herokuapp.com");
+    res.header("Access-Control-Allow-Methods", "GET, PUT, OPTIONS, POST, DELETE, UPDATE");
+    res.header('Access-Control-Allow-Headers', 'X-Requested-With,content-type');// res.header("Access-Control-Allow-Headers", "*, Authorization");
+    res.header('Access-Control-Allow-Credentials', true);
   
     app.use(cors());
     next()
