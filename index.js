@@ -21,7 +21,7 @@ dotenv.config();
 app.use(express.json());
 app.use((req, res, next)=>{
 
-    const allowedOrigins = ['http://localhost:3000','https://vandjaline.herokuapp.com'];
+    const allowedOrigins = ['http://localhost:3000','https://vandjaline.herokuapp.com', 'https://vandjaline-f.herokuapp.com'];
     const origin = req.headers.origin;
     if (allowedOrigins.includes(origin)) {
         res.setHeader('Access-Control-Allow-Origin', origin);
