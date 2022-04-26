@@ -20,17 +20,22 @@ dotenv.config();
 
 app.use(express.json());
 app.use((req, res, next)=>{
-    res.header("Access-Control-Allow-Origin","http://localhost:3000, https://vandjaline.herokuapp.com");
+
+    const allowedOrigins = ['http://localhost:3000','https://vandjaline.herokuapp.com'];
+    const origin = req.headers.origin;
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+   }
+
+    //res.header("Access-Control-Allow-Origin","http://localhost:3000, https://vandjaline.herokuapp.com");
     res.header("Access-Control-Allow-Methods", "GET, PUT, OPTIONS, POST, DELETE, UPDATE");
     res.header("Access-Control-Allow-Headers", "*, Authorization");
-    res.header('Access-Control-Allow-Credentials', true);
-  
     app.use(cors());
     next()
 });
 
 
-mongoose.connect(process.env.MONGO_URL , {useNewUrlParser: true, useUnifiedTopology: true}).then(()=>{
+mongoose.connect(process.env.MONGO_URL /*'mongodb://127.0.0.1:27017/vandjaline_db'*/, {useNewUrlParser: true, useUnifiedTopology: true}).then(()=>{
     console.log("Conexao Criada com sucesso");
 }).catch((error)=>{
     console.log("Error: erro ao criar a conexao com o banco de dados :"+error);
