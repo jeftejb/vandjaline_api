@@ -18,13 +18,26 @@ const cors = require("cors");
 dotenv.config();
 
 
-app.use(cors());
+const corsOpts = {
+    origin: '*',
+  
+    methods: [
+      'GET', 'PUT', 'OPTIONS', 'POST', 'DELETE', 'UPDATE',
+    ],
+  
+    allowedHeaders: [
+      'Content-Type',
+    ],
+  };
+  
+
+app.use(cors(corsOpts));
 app.use(express.json());
 /*
 app.use((req, res, next)=>{
-    res.header("Access-Control-Allow-Origin","*");
-    res.header("Access-Control-Allow-Methods", "GET, PUT, OPTIONS, POST, DELETE, UPDATE");
-    res.header("Access-Control-Allow-Headers", "*, Authorization");
+    res.header('Access-Control-Allow-Origin','*');
+    res.header('Access-Control-Allow-Methods', 'GET, PUT, OPTIONS, POST, DELETE, UPDATE');
+    res.header('Access-Control-Allow-Headers', '*, Authorization');
     res.header('Access-Control-Allow-Credentials', true);
     app.use(cors());
     next()
