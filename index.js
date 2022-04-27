@@ -25,9 +25,7 @@ const corsOpts = {
       'GET', 'PUT', 'OPTIONS', 'POST', 'DELETE', 'UPDATE',
     ],
   
-    allowedHeaders: [
-      'Content-Type',
-    ],
+     allowedHeaders: ['Content-Type', 'x-requested-with', 'Authorization', 'Accept', 'token'],
   };
   
 
