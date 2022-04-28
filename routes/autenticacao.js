@@ -222,7 +222,7 @@ router.post("/email/confirmacao", async (req, res )=>{
             html: `
             
             <b>Muito obrigado por se inscrever no nosso site, esperamos que tenha uma boa esperiencia navegando no nosso site, mas para concluir o cadastro por favor clique em confirmar cadastro</b>
-            <a href ="http://localhost:3000/confirmar/${req.body.id}" >Confirmar cadastro <a/>
+            <a href ="${process.env.SITE_URL}/confirmar/${req.body.id}" >Confirmar cadastro <a/>
             `, // html body
           });
         
