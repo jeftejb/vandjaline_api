@@ -203,8 +203,8 @@ router.post("/email/confirmacao", async (req, res )=>{
     
         const transporter = nodemailer.createTransport({
             host: "smtp.gmail.com",
-            port: 587,
-            secure: false, // true for 465, false for other ports
+            port: 465,
+            secure: true, // true for 465, false for other ports
             auth: {
                 user: EMAIL, // generated ethereal user
                 pass: PASS, // generated ethereal password
