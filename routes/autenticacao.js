@@ -5,12 +5,15 @@ const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken") ;
 const { verificaToken } = require("./verificaToken");
 const nodemailer = require("nodemailer");
+const dotenv = require("dotenv");
+
 //var pdfMake = require('pdfmake/build/pdfmake.js');
 //var pdfFonts = require('pdfmake/build/vfs_fonts.js');
 
 const EMAIL = "uservandja@gmail.com";
 const PASS = "929312201";
 
+dotenv.config()
 
  
 //Registro usuario
@@ -166,25 +169,27 @@ router.post("/email", async (req, res )=>{
    
 try{
 
-    const transporter = nodemailer.createTransport({
-        host: "smtp.gmail.com",
-        port: 587,
-        secure: false, // true for 465, false for other ports
-        auth: {
-          user: EMAIL, // generated ethereal user
-          pass: PASS, // generated ethereal password
-        },
+    const  transporter = nodemailer.createTransport({
+        service: process.env.EMAIL_SERVICE,
+          auth: {
+            user : process.env.EMAIL_USERNAME,
+            pass : process.env.EMAIL_PASSWORD
+          }
       });
-    
-      // send mail with defined transport object
-         await transporter.sendMail({
-        from: '"Fred Foo 👻" <uservandja@gmail.com>', // sender address
-        to: req.body.email, // list of receivers
-        subject: "Hello ✔", // Subject line
-        text: "Hello world?", // plain text body
-        html: `<b>${req.body.conteudo}</b>`, // html body
-      });
-    
+      
+      const email = {
+        from : process.env.EMAIL_SENDER, 
+        to: req.body.email,
+        subject: `nodemailer + outlook`,
+        text: `email enviado com nodemailer.`,
+        html: `<p>Email enviado com nodemailer </p>`
+      
+      }
+      
+      transporter.sendMail(email, (err, result)=>{
+        if(err) return console.log(err)
+        console.log("Mensagem enviada!!!! " + result)
+      })
 
 
 }catch(erro){
@@ -201,19 +206,16 @@ router.post("/email/confirmacao", async (req, res )=>{
    
     try{
     
-        const transporter = nodemailer.createTransport({
-            host: "smtp.gmail.com",
-            port: 587,
-            secure: false, // true for 465, false for other ports
-            auth: {
-                user: process.env.EMAIL_SEC, // generated ethereal user
-                pass: process.env.PASS_SEC, // generated ethereal password
-              },
+        const  transporter = nodemailer.createTransport({
+            service: process.env.EMAIL_SERVICE,
+              auth: {
+                user : process.env.EMAIL_USERNAME,
+                pass : process.env.EMAIL_PASSWORD
+              }
           });
-        
           // send mail with defined transport object
              await transporter.sendMail({
-            from: `"Vandjaline👻" <${process.env.EMAIL_SEC}>`, // sender address
+            from: `"Vandjaline👻" <${process.env.EMAIL_FROM}>`, // sender address
             to: req.body.email, // list of receivers
             subject: "Saudações vandja✔", // Subject line
             text: "Seja bem vindo", // plain text body
