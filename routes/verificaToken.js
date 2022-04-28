@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken")
-
+const dotenv = require("dotenv");
 //usuario
 
-
+dotenv.config()
 const verificaToken = async (req, res, next) =>{
      const autHeader = await req?.headers?.token;
     if(autHeader ){
