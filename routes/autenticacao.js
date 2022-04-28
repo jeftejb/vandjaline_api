@@ -206,8 +206,8 @@ router.post("/email/confirmacao", async (req, res )=>{
             port: 465,
             secure: true, // true for 465, false for other ports
             auth: {
-                user: EMAIL, // generated ethereal user
-                pass: PASS, // generated ethereal password
+                user: process.env.EMAIL_SEC, // generated ethereal user
+                pass: process.env.PASS_SEC, // generated ethereal password
               },
           });
         
