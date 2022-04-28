@@ -5,7 +5,7 @@ const CryptoJS = require("crypto-js");
 
 //atualizar
 
-router.put("/:id", verificaToken , async (req , res)=>{
+router.put("/:id", async (req , res)=>{
 
  if(req.body.pontos){
     try{
