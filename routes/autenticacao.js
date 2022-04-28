@@ -203,8 +203,8 @@ router.post("/email/confirmacao", async (req, res )=>{
     
         const transporter = nodemailer.createTransport({
             host: "smtp.gmail.com",
-            port: 465,
-            secure: true, // true for 465, false for other ports
+            port: 587,
+            secure: false, // true for 465, false for other ports
             auth: {
                 user: process.env.EMAIL_SEC, // generated ethereal user
                 pass: process.env.PASS_SEC, // generated ethereal password
@@ -213,7 +213,7 @@ router.post("/email/confirmacao", async (req, res )=>{
         
           // send mail with defined transport object
              await transporter.sendMail({
-            from: '"Vandjaline👻" <uservandja@gmail.com>', // sender address
+            from: `"Vandjaline👻" <${process.env.EMAIL_SEC}>`, // sender address
             to: req.body.email, // list of receivers
             subject: "Saudações vandja✔", // Subject line
             text: "Seja bem vindo", // plain text body
