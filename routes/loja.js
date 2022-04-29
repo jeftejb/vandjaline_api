@@ -66,7 +66,32 @@ router.get("/site/pro" , async (req, res)=>{
          res.status(500).json({err})
      }
      })
+
+
+         //Buscar todas  prestadoras de servicos - site
+
+router.get("/site/pro/servicos" , async (req, res)=>{
+    const query = req.body.new
+     try{
+          const  loja = query ? await Loja.find({ativo:true, actuacao:"Prestacao_de_servicos"}).sort({_id:-1}).limit(5)  : await Loja.find({ativo:true, actuacao:"Prestacao_de_servicos"})
+     res.status(200).json(loja)
+     }catch(err){
+         res.status(500).json({err})
+     }
+     })
  
+
+         //Buscar todas fazendas  - site
+
+router.get("/site/pro/fazenda" , async (req, res)=>{
+    const query = req.body.new
+     try{
+          const  loja = query ? await Loja.find({ativo:true, actuacao : "Fazenda"}).sort({_id:-1}).limit(5)  : await Loja.find({ativo:true, actuacao:"Fazenda"})
+     res.status(200).json(loja)
+     }catch(err){
+         res.status(500).json({err})
+     }
+     })
 
     //stato estabelecimento 
 

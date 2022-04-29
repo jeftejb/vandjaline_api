@@ -1,14 +1,14 @@
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 //usuario
 
 dotenv.config() ; 
 
-const verificaToken = async (req, res, next) =>{
-     const autHeader = await req.headers.token;
-    if(autHeader ){
+const verificaToken = (req, res, next) =>{
+     const autHeader =  req.headers.token;
+    if(autHeader){
         const token = autHeader.split(' ')[1]
-         await jwt.verify(token, process.env.JWT_SEC, (err, user)=>{
+         jwt.verify(token, process.env.JWT_SEC,(err, user)=>{
             if(err){ return res.status(403).json(err)}
             req.user = user
             next()

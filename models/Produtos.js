@@ -3,8 +3,8 @@ const mongoose = require("mongoose")
 const ProdutosSchama = new mongoose.Schema({
     titulo:{type:String, required:true, unique:false}, 
     descricao:{type:String, required:true, unique:false},
-    imagem:{type:String }, 
-    categoria:{type:Array }, 
+    imagem:{type:String}, 
+    categoria:{type:Array}, 
     tamanho:{type:Array }, 
     cor:{type:Array },
     preco:{type:Number, required:true},
@@ -13,7 +13,12 @@ const ProdutosSchama = new mongoose.Schema({
     loja:{type:String, required:true},  
     id_loja:{type:String, required:true}, 
     novo:{type:String},
-    quanti:{type:Number, default:0}
+    quanti:{type:Number, default:0},
+    actuacaoLoja:{type:String}, 
+    rec:{type:Number, default:0}, 
+    userRec:[
+        {id_usuario : {type:String, unique:true}}
+    ],
    
 
 }, 

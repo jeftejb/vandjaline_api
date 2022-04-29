@@ -28,6 +28,31 @@ try{
 }catch(err){res.status(500).json({err})}
 })
 
+
+//actualizar recomendacoes
+
+router.put("/recomendacoes/:id", verificaToken, async (req , res)=>{
+ 
+    try{
+        const updateProduto = await Produto.findByIdAndUpdate(req.params.id, {
+            $set:req.body
+        } , {new:true})
+        res.status(200).json(updateProduto)
+    }catch(err){res.status(500).json({err})}
+    })
+    
+// adicionar id usuario recomdacao
+    router.put("/adicionar/id/:id", verificaToken , async (req, res) =>{
+   
+        try{
+            const updateProduto = await Produto.findByIdAndUpdate(req.params.id, {
+                $set:req.body
+            } , {new:true})
+            res.status(200).json(updateProduto)
+        }catch(err){res.status(500).json({err})}
+        })
+
+
 //Delete produto
 
 router.delete("/:id", verificaTokenEadmin, async (req, res)=>{
@@ -59,6 +84,19 @@ router.get("/:id", async (req, res)=>{
             res.status(500).json({err})
         }
         })
+
+
+        // Produtos do campo
+
+
+        router.get("/fazenda/campo/:id", async (req, res)=>{
+            try{
+            const produto  = await Produto.find({id_loja: req.params.id , actuacaoLoja : "Fazenda", activo:true})
+            res.status(200).json(produto)
+            }catch(err){
+                res.status(500).json({err})
+            }
+            })
 
 
         router.get("/loja/admin/:id", async (req, res)=>{

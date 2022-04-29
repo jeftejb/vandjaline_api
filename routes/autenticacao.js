@@ -48,6 +48,8 @@ res.status(200).json(salvarUsuario)
 
 router.post("/registro/estabelecimento", async (req, res)=>{
     
+  
+
     const newEstabelecimento = new Loja({
         nomeLoja:req.body.nomeLoja, 
         gerenteLoja:req.body.gerenteLoja, 
@@ -55,8 +57,8 @@ router.post("/registro/estabelecimento", async (req, res)=>{
         emailLoja:req.body.emailLoja, 
         telefoneLoja:req.body.telefoneLoja, 
         enderecoLoja:req.body.enderecoLoja, 
-        provinciaLoja:req.body.provinciaLoja,
-        municipioLoja:req.body.municipioLoja, 
+        provinciaLoja:req.body.provincia,
+        municipioLoja:req.body.municipio, 
         actuacao:req.body.actuacao, 
         imagem:req.body.imagem, 
         descricao:req.body.descricao,  
@@ -64,6 +66,7 @@ router.post("/registro/estabelecimento", async (req, res)=>{
             req.body.password, process.env.PASS_SEC
             ).toString()
     })
+    console.log(newEstabelecimento)
     
     try{
     const salvarEstabelecimento  = await newEstabelecimento.save()
@@ -243,26 +246,24 @@ router.post("/email/confirmacao", async (req, res )=>{
    
         try{
         
-            const transporter = nodemailer.createTransport({
-                host: "smtp.gmail.com",
-                port: 587,
-                secure: false, // true for 465, false for other ports
-                auth: {
-                    user: EMAIL, // generated ethereal user
-                    pass: PASS, // generated ethereal password
-                  },
+            const  transporter = nodemailer.createTransport({
+                service: process.env.EMAIL_SERVICE,
+                  auth: {
+                    user : process.env.EMAIL_USERNAME,
+                    pass : process.env.EMAIL_PASSWORD
+                  }
               });
             
               // send mail with defined transport object
                  await transporter.sendMail({
-                from: '"Vandjaline👻" <uservandja@gmail.com>', // sender address
+                from: `"Vandjaline👻" <${process.env.EMAIL_FROM}>`, // sender address
                 to: req.body.email, // list of receivers
                 subject: "Saudações vandja Recuperação de senha ✔", // Subject line
                 text: "Seja bem vindo", // plain text body
                 html: `
                 
                 <b>Email de recuperação de senha, clica no link  "recuperar" para finalizar o processo obrigado. </b>
-                <a href ="http://localhost:3000/recuperar/senha/mudar/${req.body.email}" >Recuperar<a/>
+                <a href ="${process.env.SITE_URL}/recuperar/senha/mudar/${req.body.email}" >Recuperar<a/>
                 `, // html body
               });
             
@@ -280,24 +281,18 @@ router.post("/email/confirmacao", async (req, res )=>{
 
 
         router.post("/email/pagamento", async (req, res )=>{
-   
             try{
-
-                
-            
-                const transporter = nodemailer.createTransport({
-                    host: "smtp.gmail.com",
-                    port: 587,
-                    secure: false, // true for 465, false for other ports
-                    auth: {
-                        user: EMAIL, // generated ethereal user
-                        pass: PASS, // generated ethereal password
-                      },
+                const  transporter = nodemailer.createTransport({
+                    service: process.env.EMAIL_SERVICE,
+                      auth: {
+                        user : process.env.EMAIL_USERNAME,
+                        pass : process.env.EMAIL_PASSWORD
+                      }
                   });
                 
                   // send mail with defined transport object
                      await transporter.sendMail({
-                    from: '"Vandjaline👻" <uservandja@gmail.com>', // sender address
+                    from: `"Vandjaline👻" <${process.env.EMAIL_FROM}>`, // sender address
                     to: req.body.email, // list of receivers
                     subject: "Saudações vandja✔", // Subject line
                     text: "Seja bem vindo", // plain text body
@@ -355,30 +350,26 @@ router.post("/email/confirmacao", async (req, res )=>{
 
 
 router.post("/email/cancela", async (req, res )=>{
-   
-   
     try{
     
-        const transporter = nodemailer.createTransport({
-            host: "smtp.gmail.com",
-            port: 587,
-            secure: false, // true for 465, false for other ports
-            auth: {
-                user: EMAIL, // generated ethereal user
-                pass: PASS, // generated ethereal password
-              },
+        const  transporter = nodemailer.createTransport({
+            service: process.env.EMAIL_SERVICE,
+              auth: {
+                user : process.env.EMAIL_USERNAME,
+                pass : process.env.EMAIL_PASSWORD
+              }
           });
         
           // send mail with defined transport object
              await transporter.sendMail({
-            from: '"Vandjaline👻" <uservandja@gmail.com>', // sender address
+            from: `"Vandjaline👻" <${process.env.EMAIL_FROM}>`, // sender address
             to: req.body.email, // list of receivers
             subject: "Saudações vandja , Aviso de canselamento !!", // Subject line
             text: "Emial de canselamento", // plain text body
             html: `
             
             <b>Email de canselamento a Loja ${req.body.loja} canselou o seu pedido </b><br/><br/>
-            <a href ="http://localhost:3000" >Ir para o site<a/>
+            <a href ="${process.env.SITE_URL}/login" >Ir para o site<a/>
             `, // html body
           });
         
