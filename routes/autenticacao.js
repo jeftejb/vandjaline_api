@@ -167,28 +167,42 @@ router.post("/email", async (req, res )=>{
    
 try{
 
-    const  transporter = nodemailer.createTransport({
-        service: process.env.EMAIL_SERVICE,
-          auth: {
-            user : process.env.EMAIL_USERNAME,
-            pass : process.env.EMAIL_PASSWORD
-          }
-      });
-      
-      const email = {
-        from : process.env.EMAIL_SENDER, 
-        to: req.body.email,
-        subject: `nodemailer + outlook`,
-        text: `email enviado com nodemailer.`,
-        html: `<p>Email enviado com nodemailer </p>`
-      
-      }
-      
-      transporter.sendMail(email, (err, result)=>{
-        if(err) return console.log(err)
-        console.log("Mensagem enviada!!!! " + result)
-      })
-
+    // Get Mailer To Go SMTP connection details
+    let mailertogo_host     = process.env.MAILERTOGO_SMTP_HOST;
+    let mailertogo_port     = process.env.MAILERTOGO_SMTP_PORT || 587;
+    let mailertogo_user     = process.env.MAILERTOGO_SMTP_USER;
+    let mailertogo_password = process.env.MAILERTOGO_SMTP_PASSWORD;
+    let mailertogo_domain   = process.env.MAILERTOGO_DOMAIN || "uservandja@gmail.com";
+  
+    // create reusable transporter object using the default SMTP transport
+    let transporter = nodemailer.createTransport({
+      host: mailertogo_host,
+      port: mailertogo_port,
+      requireTLS: true, // Must use STARTTLS
+      auth: {
+        user: mailertogo_user,
+        pass: mailertogo_password,
+      },
+    });
+  
+    // Sender domain must match mailertogo_domain or otherwise email will not be sent
+    let from = `${mailertogo_domain}>`;
+  
+    // Change to recipient email. Make sure to use a real email address in your tests to avoid hard bounces and protect your reputation as a sender.
+    let to = `${req.body.email}>`;
+  
+    let subject = "Mailer To Go Test";
+  
+    // Send mail with defined transport object
+    let info = await transporter.sendMail({
+      from: from, // Sender address, must use the Mailer To Go domain
+      to: to, // Recipients
+      subject: subject, // Subject line
+      text: "Test from Mailer To Go 😊.", // Plain text body
+      html: "Test from <b>Mailer To Go</b> 😊.", // HTML body
+    });
+  
+    console.log("Message sent: %s", info.messageId);
 
 }catch(erro){
     console.log(erro)
