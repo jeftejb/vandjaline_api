@@ -178,7 +178,8 @@ try{
     let transporter = nodemailer.createTransport({
       host: mailertogo_host,
       port: mailertogo_port,
-      requireTLS: true, // Must use STARTTLS
+      //requireTLS: true, // Must use STARTTLS
+      secure: false,
       auth: {
         user: mailertogo_user,
         pass: mailertogo_password,
