@@ -187,10 +187,10 @@ try{
     });
   
     // Sender domain must match mailertogo_domain or otherwise email will not be sent
-    let from = `<${mailertogo_domain}>`;
+    let from = `"Vandjaline👻" <${mailertogo_domain}>`;
   
     // Change to recipient email. Make sure to use a real email address in your tests to avoid hard bounces and protect your reputation as a sender.
-    let to = `<${req.body.email}>`;
+    let to = req.body.email ;
   
     let subject = "Mailer To Go Test";
   
