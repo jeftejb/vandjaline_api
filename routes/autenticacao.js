@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken") ;
 const { verificaToken } = require("./verificaToken");
 const nodemailer = require("nodemailer");
 const dotenv = require("dotenv");
-var twilio = require('twilio');
+
 
 //var pdfMake = require('pdfmake/build/pdfmake.js');
 //var pdfFonts = require('pdfmake/build/vfs_fonts.js');
@@ -206,18 +206,13 @@ try{
   
     */
 
-  
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const client = require('twilio')(accountSid, authToken);
 
-// Find your account sid and auth token in your Twilio account Console.
-var client = new twilio( process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
-
-// Send the text message.
-client.messages.create({
-  to: +244936828206,
-  from: +16606535112,
-  body: 'Hello from Twilio!'
-});
-
+client.messages
+      .create({body: 'Hi there', from: '+16606535112', to: '+244936828206'})
+      .then(message => console.log(message.sid));
 
 }catch(erro){
     console.log(erro)
