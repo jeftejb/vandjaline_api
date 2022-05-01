@@ -195,7 +195,7 @@ try{
     let subject = "Mailer To Go Test";
   
     // Send mail with defined transport object
-    let info = await transporter.sendMail({
+     await transporter.sendMail({
       from: from, // Sender address, must use the Mailer To Go domain
       to: to, // Recipients
       subject: subject, // Subject line
@@ -203,7 +203,7 @@ try{
       html: "Test from <b>Mailer To Go</b> 😊.", // HTML body
     });
   
-    console.log("Message sent: %s", info.messageId);
+    
 
 }catch(erro){
     console.log(erro)
