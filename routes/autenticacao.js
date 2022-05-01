@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken") ;
 const { verificaToken } = require("./verificaToken");
 const nodemailer = require("nodemailer");
 const dotenv = require("dotenv");
+var twilio = require('twilio');
 
 //var pdfMake = require('pdfmake/build/pdfmake.js');
 //var pdfFonts = require('pdfmake/build/vfs_fonts.js');
@@ -166,13 +167,13 @@ router.post("/login/estabelecimento", async (req, res)=>{
 router.post("/email", async (req, res )=>{
    
 try{
-
+/*
     // Get Mailer To Go SMTP connection details
     let mailertogo_host     = process.env.MAILERTOGO_SMTP_HOST;
     let mailertogo_port     = process.env.MAILERTOGO_SMTP_PORT || 587;
     let mailertogo_user     = process.env.MAILERTOGO_SMTP_USER;
     let mailertogo_password = process.env.MAILERTOGO_SMTP_PASSWORD;
-    let mailertogo_domain   = process.env.MAILERTOGO_DOMAIN || "uservandja@gmail.com";
+    let mailertogo_domain   = process.env.MAILERTOGO_DOMAIN || "vandjaline@yahoo.com";
   
     // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
@@ -203,7 +204,20 @@ try{
       html: "Test from <b>Mailer To Go</b> 😊.", // HTML body
     });
   
-    
+    */
+
+  
+
+// Find your account sid and auth token in your Twilio account Console.
+var client = new twilio( process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+
+// Send the text message.
+client.messages.create({
+  to: +244936828206,
+  from: +16606535112,
+  body: 'Hello from Twilio!'
+});
+
 
 }catch(erro){
     console.log(erro)
