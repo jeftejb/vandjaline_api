@@ -10,11 +10,6 @@ const dotenv = require("dotenv");
 //var pdfMake = require('pdfmake/build/pdfmake.js');
 //var pdfFonts = require('pdfmake/build/vfs_fonts.js');
 
-const EMAIL = "uservandja@gmail.com";
-const PASS = "929312201";
-
-dotenv.config()
-
  
 //Registro usuario
 
@@ -66,7 +61,7 @@ router.post("/registro/estabelecimento", async (req, res)=>{
             req.body.password, process.env.PASS_SEC
             ).toString()
     })
-    console.log(newEstabelecimento)
+  
     
     try{
     const salvarEstabelecimento  = await newEstabelecimento.save()
