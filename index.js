@@ -28,9 +28,9 @@ const corsOpts = {
      allowedHeaders: ['Content-Type', 'x-requested-with', 'Authorization', 'Accept', 'token'],
   };
   
-
-app.use(cors(corsOpts));
 app.use(express.json());
+app.use(cors());
+
 /*
 app.use((req, res, next)=>{
     res.header('Access-Control-Allow-Origin','*');
