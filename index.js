@@ -19,7 +19,7 @@ dotenv.config();
 
 
 const corsOpts = {
-    origin: '*',
+    origin: '* , https://vandjaline.herokuapp.com',
   
     methods: [
       'GET', 'PUT', 'OPTIONS', 'POST', 'DELETE', 'UPDATE',
