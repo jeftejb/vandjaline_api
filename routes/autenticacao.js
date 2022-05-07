@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken") ;
 const { verificaToken } = require("./verificaToken");
 const nodemailer = require("nodemailer");
 const dotenv = require("dotenv");
+const {google} = require("googleapis")
 
 
 //var pdfMake = require('pdfmake/build/pdfmake.js');
@@ -13,6 +14,8 @@ const dotenv = require("dotenv");
 
  
 //Registro usuario
+dotenv.config();
+
 
 router.post("/registro/usuario", async (req, res)=>{
 
@@ -117,7 +120,7 @@ router.post("/confirm",verificaToken, async (req, res)=>{
             res.status(200).json(user._doc)
         } else{
             
-            //console.log(user.codigoInter, Number(req.body.confirm_codigo))
+            console.log(user.codigoInter, Number(req.body.confirm_codigo))
         }
         
     }catch(err){
@@ -161,58 +164,60 @@ router.post("/login/estabelecimento", async (req, res)=>{
 
 })
 
-
-
-
 router.post("/email", async (req, res )=>{
+    const authe2 = google.auth.OAuth2
+
+    const autCliente = new authe2(
+        process.env.GOODLE_CLIENTE_ID,
+        process.env.GOODLE_CLIENTE_CHAVE,
+        process.env.GOODLE_CLIENTE_URI
+    )
+    
+    
+    autCliente.setCredentials({
+        refresh_token : process.env.GOODLE_CLIENTE_TOKEN 
+    })
+    
+    const acessoToken = new Promise((resolve, reject)=>{
+        autCliente.getAccessToken((error, token)=>{
+            if(error) reject(error)
+            resolve(token)
+        })
+    })
+    
+    
    
-try{
-/*
-    // Get Mailer To Go SMTP connection details
-    let mailertogo_host     = process.env.MAILERTOGO_SMTP_HOST;
-    let mailertogo_port     = process.env.MAILERTOGO_SMTP_PORT || 587;
-    let mailertogo_user     = process.env.MAILERTOGO_SMTP_USER;
-    let mailertogo_password = process.env.MAILERTOGO_SMTP_PASSWORD;
-    let mailertogo_domain   = process.env.MAILERTOGO_DOMAIN || "vandjaline@yahoo.com";
-  
-    // create reusable transporter object using the default SMTP transport
-    let transporter = nodemailer.createTransport({
-      host: mailertogo_host,
-      port: mailertogo_port,
-      requireTLS: true, // Must use STARTTLS
-      //secure: false,
-      auth: {
-        user: mailertogo_user,
-        pass: mailertogo_password,
-      },
-    });
-  
-    // Sender domain must match mailertogo_domain or otherwise email will not be sent
-    let from = `"Vandjaline👻" <${mailertogo_domain}>`;
-  
-    // Change to recipient email. Make sure to use a real email address in your tests to avoid hard bounces and protect your reputation as a sender.
-    let to = req.body.email ;
-  
-    let subject = "Mailer To Go Test";
-  
-    // Send mail with defined transport object
-     await transporter.sendMail({
-      from: from, // Sender address, must use the Mailer To Go domain
-      to: to, // Recipients
-      subject: subject, // Subject line
-      text: "Test from Mailer To Go 😊.", // Plain text body
-      html: "Test from <b>Mailer To Go</b> 😊.", // HTML body
-    });
-  
-    */
+    try{
+    
+        let transporter = nodemailer.createTransport({
+            service: "gmail",
+            host: "smtp.gmail.com",
+            port: 587,
+            secure: false, // true for 465, false for other ports
+            auth: {
+                type: "OAuth2",
+                user: process.env.EMAIL_FROM,
+                clientId: process.env.GOODLE_CLIENTE_ID, acessoToken,
+                clientSecret: process.env.GOODLE_CLIENTE_CHAVE,
+                refreshToken: process.env.GOODLE_CLIENTE_TOKEN,
+                
+            },
+          });
+          // send mail with defined transport object
+             await transporter.sendMail({
+            from: `"Vandjaline👻" <${process.env.EMAIL_FROM}>`, // sender address
+            to: req.body.email, // list of receivers
+            subject: "Saudações vandja✔", // Subject line
+            text: "Codigo de confirmação", // plain text body
+            html: `
+            
+            <b>O seu codigo de confirmação é : ${req.body.conteudo}</b>
+            
+            `, // html body
+          });
+        
+    
 
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-const client = require('twilio')(accountSid, authToken);
-
-client.messages
-      .create({body: 'Hi there', from: '+16606535112', to: '+244936828206'})
-      .then(message => console.log(message.sid));
 
 }catch(erro){
     console.log(erro)
@@ -220,20 +225,46 @@ client.messages
 }
 
 })
-
-
 // email de confirmacao
-
 router.post("/email/confirmacao", async (req, res )=>{
+
+    const authe2 = google.auth.OAuth2
+
+    const autCliente = new authe2(
+        process.env.GOODLE_CLIENTE_ID,
+        process.env.GOODLE_CLIENTE_CHAVE,
+        process.env.GOODLE_CLIENTE_URI
+    )
+    
+    
+    autCliente.setCredentials({
+        refresh_token : process.env.GOODLE_CLIENTE_TOKEN 
+    })
+    
+    const acessoToken = new Promise((resolve, reject)=>{
+        autCliente.getAccessToken((error, token)=>{
+            if(error) reject(error)
+            resolve(token)
+        })
+    })
+    
+    
    
     try{
     
-        const  transporter = nodemailer.createTransport({
-            service: process.env.EMAIL_SERVICE,
-              auth: {
-                user : process.env.EMAIL_USERNAME,
-                pass : process.env.EMAIL_PASSWORD
-              }
+        let transporter = nodemailer.createTransport({
+            service: "gmail",
+            host: "smtp.gmail.com",
+            port: 587,
+            secure: false, // true for 465, false for other ports
+            auth: {
+                type: "OAuth2",
+                user: process.env.EMAIL_FROM,
+                clientId: process.env.GOODLE_CLIENTE_ID, acessoToken,
+                clientSecret: process.env.GOODLE_CLIENTE_CHAVE,
+                refreshToken: process.env.GOODLE_CLIENTE_TOKEN,
+                
+            },
           });
           // send mail with defined transport object
              await transporter.sendMail({
@@ -255,23 +286,48 @@ router.post("/email/confirmacao", async (req, res )=>{
     
     }
     
+})
+//email de recuperacao de senha
+router.post("/email/recuperacao", async (req, res )=>{
+   
+    const authe2 = google.auth.OAuth2
+
+    const autCliente = new authe2(
+        process.env.GOODLE_CLIENTE_ID,
+        process.env.GOODLE_CLIENTE_CHAVE,
+        process.env.GOODLE_CLIENTE_URI
+    )
+    
+    
+    autCliente.setCredentials({
+        refresh_token : process.env.GOODLE_CLIENTE_TOKEN 
     })
     
-
-
-//email de recuperacao de senha
-
-    router.post("/email/recuperacao", async (req, res )=>{
+    const acessoToken = new Promise((resolve, reject)=>{
+        autCliente.getAccessToken((error, token)=>{
+            if(error) reject(error)
+            resolve(token)
+        })
+    })
+    
+    
    
-        try{
-        
-            const  transporter = nodemailer.createTransport({
-                service: process.env.EMAIL_SERVICE,
-                  auth: {
-                    user : process.env.EMAIL_USERNAME,
-                    pass : process.env.EMAIL_PASSWORD
-                  }
-              });
+    try{
+    
+        let transporter = nodemailer.createTransport({
+            service: "gmail",
+            host: "smtp.gmail.com",
+            port: 587,
+            secure: false, // true for 465, false for other ports
+            auth: {
+                type: "OAuth2",
+                user: process.env.EMAIL_FROM,
+                clientId: process.env.GOODLE_CLIENTE_ID, acessoToken,
+                clientSecret: process.env.GOODLE_CLIENTE_CHAVE,
+                refreshToken: process.env.GOODLE_CLIENTE_TOKEN,
+                
+            },
+          });
             
               // send mail with defined transport object
                  await transporter.sendMail({
@@ -293,21 +349,47 @@ router.post("/email/confirmacao", async (req, res )=>{
         
         }
         
-        })
-
-
+})
         //email pagamento
+router.post("/email/pagamento", async (req, res )=>{
+    const authe2 = google.auth.OAuth2
 
-
-        router.post("/email/pagamento", async (req, res )=>{
-            try{
-                const  transporter = nodemailer.createTransport({
-                    service: process.env.EMAIL_SERVICE,
-                      auth: {
-                        user : process.env.EMAIL_USERNAME,
-                        pass : process.env.EMAIL_PASSWORD
-                      }
-                  });
+    const autCliente = new authe2(
+        process.env.GOODLE_CLIENTE_ID,
+        process.env.GOODLE_CLIENTE_CHAVE,
+        process.env.GOODLE_CLIENTE_URI
+    )
+    
+    
+    autCliente.setCredentials({
+        refresh_token : process.env.GOODLE_CLIENTE_TOKEN 
+    })
+    
+    const acessoToken = new Promise((resolve, reject)=>{
+        autCliente.getAccessToken((error, token)=>{
+            if(error) reject(error)
+            resolve(token)
+        })
+    })
+    
+    
+   
+    try{
+    
+        let transporter = nodemailer.createTransport({
+            service: "gmail",
+            host: "smtp.gmail.com",
+            port: 587,
+            secure: false, // true for 465, false for other ports
+            auth: {
+                type: "OAuth2",
+                user: process.env.EMAIL_FROM,
+                clientId: process.env.GOODLE_CLIENTE_ID, acessoToken,
+                clientSecret: process.env.GOODLE_CLIENTE_CHAVE,
+                refreshToken: process.env.GOODLE_CLIENTE_TOKEN,
+                
+            },
+          });
                 
                   // send mail with defined transport object
                      await transporter.sendMail({
@@ -362,21 +444,46 @@ router.post("/email/confirmacao", async (req, res )=>{
             
             }
             
-            })
-            
-        
+})  
 // email de canselamento de pedido
-
-
 router.post("/email/cancela", async (req, res )=>{
+    const authe2 = google.auth.OAuth2
+
+    const autCliente = new authe2(
+        process.env.GOODLE_CLIENTE_ID,
+        process.env.GOODLE_CLIENTE_CHAVE,
+        process.env.GOODLE_CLIENTE_URI
+    )
+    
+    
+    autCliente.setCredentials({
+        refresh_token : process.env.GOODLE_CLIENTE_TOKEN 
+    })
+    
+    const acessoToken = new Promise((resolve, reject)=>{
+        autCliente.getAccessToken((error, token)=>{
+            if(error) reject(error)
+            resolve(token)
+        })
+    })
+    
+    
+   
     try{
     
-        const  transporter = nodemailer.createTransport({
-            service: process.env.EMAIL_SERVICE,
-              auth: {
-                user : process.env.EMAIL_USERNAME,
-                pass : process.env.EMAIL_PASSWORD
-              }
+        let transporter = nodemailer.createTransport({
+            service: "gmail",
+            host: "smtp.gmail.com",
+            port: 587,
+            secure: false, // true for 465, false for other ports
+            auth: {
+                type: "OAuth2",
+                user: process.env.EMAIL_FROM,
+                clientId: process.env.GOODLE_CLIENTE_ID, acessoToken,
+                clientSecret: process.env.GOODLE_CLIENTE_CHAVE,
+                refreshToken: process.env.GOODLE_CLIENTE_TOKEN,
+                
+            },
           });
         
           // send mail with defined transport object
@@ -399,7 +506,7 @@ router.post("/email/cancela", async (req, res )=>{
     
     }
     
-    })
+})
 
 
 
