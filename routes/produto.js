@@ -86,7 +86,32 @@ router.get("/:id", async (req, res)=>{
         })
 
 
-        // Produtos do campo
+        //prestacao de servicos 
+
+        
+
+        router.get("/servicos/todos", async (req, res)=>{
+            try{
+                const produto  = await Produto.find({actuacaoLoja : "Prestacao_de_servicos", activo:true})
+            res.status(200).json(produto)
+            }catch(err){
+                res.status(500).json({err})
+            }
+            })
+
+
+        //todos produtos do campo 
+        router.get("/fazenda/todos", async (req, res)=>{
+            try{
+                const produto  = await Produto.find({actuacaoLoja : "Fazenda", activo:true})
+            res.status(200).json(produto)
+            }catch(err){
+                res.status(500).json({err})
+            }
+            })
+
+
+        // Produtos do campo loja
 
 
         router.get("/fazenda/campo/:id", async (req, res)=>{
@@ -97,6 +122,8 @@ router.get("/:id", async (req, res)=>{
                 res.status(500).json({err})
             }
             })
+
+
 
 
         router.get("/loja/admin/:id", async (req, res)=>{
