@@ -18,8 +18,14 @@ const cors = require("cors");
 dotenv.config();
 
 
-const corsOpts = {
-    origin: '* , https://vandjaline.herokuapp.com',
+
+  const allowlist = ['https://vandjaline.herokuapp.com', 'https://vandjaline-admin.herokuapp.com']
+const corsOptionsDelegate =  (req, callback)=> {
+ var corsOpts;
+  if (allowlist.indexOf(req.header('Origin')) !== -1) {
+    corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
+ corsOpts = {
+    origin: true,
   
     methods: [
       'GET', 'PUT', 'OPTIONS', 'POST', 'DELETE', 'UPDATE',
@@ -27,9 +33,15 @@ const corsOpts = {
   
      allowedHeaders: ['Content-Type', 'x-requested-with', 'Authorization', 'Accept', 'token'],
   };
+  } else {
+    corsOpts = { origin: false } // disable CORS for this request
+  }
+  callback(null,  corsOpts) // callback expects two parameters: error and options
+}
+
   
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptionsDelegate));
 
 /*
 app.use((req, res, next)=>{
