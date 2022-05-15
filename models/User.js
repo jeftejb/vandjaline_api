@@ -31,7 +31,7 @@ const UserSchama = new mongoose.Schema({
     confirmEmail:{
         type:Boolean, default:false , 
     },
-    pontos:{type:Number, default: 0},
+    pontos:{type:Number, default: 5},
     produtosVendidos:{type:Number, default:0},
     login:{type:Boolean, default:false},
     logado:{type:Boolean, default:false},
