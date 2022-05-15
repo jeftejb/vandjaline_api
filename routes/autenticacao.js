@@ -116,11 +116,11 @@ router.post("/confirm",verificaToken, async (req, res)=>{
         
         if(user?.codigoConfirm === Number(req.body.confirm_codigo)){ 
            
-            await User.updateOne({_id:{$eq:req.body.id}}, {$set:{confirmado: true}})
+            await User.updateOne({_id:{$eq:req.body.id}}, {$set:{confirmado: true, intermediario:"Confirmado"}})
             res.status(200).json(user._doc)
         } else{
             
-            console.log(user.codigoInter, Number(req.body.confirm_codigo))
+        alert("Número incompatível, por favor solicite outro número obrigado")
         }
         
     }catch(err){
@@ -271,11 +271,11 @@ router.post("/email/confirmacao", async (req, res )=>{
             from: `"Vandjaline👻" <${process.env.EMAIL_FROM}>`, // sender address
             to: req.body.email, // list of receivers
             subject: "Saudações vandja✔", // Subject line
-            text: "Seja bem vindo", // plain text body
+            text: "Seja bem vindo/a", // plain text body
             html: `
             
-            <b>Muito obrigado por se inscrever no nosso site, esperamos que tenha uma boa esperiencia navegando no nosso site, mas para concluir o cadastro por favor clique em confirmar cadastro</b>
-            <a href ="${process.env.SITE_URL}/confirmar/${req.body.id}" >Confirmar cadastro <a/>
+            <b>Muito obrigado por se inscrever no nosso site, esperamos que tenha uma boa esperiencia navegando no nosso site, mas para concluir o cadastro por favor clique em confirmar cadastro</b><p/><br/>
+            <a href ="${process.env.SITE_URL}/confirmar/${req.body.id}" >Confirmar cadastro </a>
             `, // html body
           });
         
@@ -334,11 +334,11 @@ router.post("/email/recuperacao", async (req, res )=>{
                 from: `"Vandjaline👻" <${process.env.EMAIL_FROM}>`, // sender address
                 to: req.body.email, // list of receivers
                 subject: "Saudações vandja Recuperação de senha ✔", // Subject line
-                text: "Seja bem vindo", // plain text body
+                text: "Seja bem vindo/a", // plain text body
                 html: `
                 
-                <b>Email de recuperação de senha, clica no link  "recuperar" para finalizar o processo obrigado. </b>
-                <a href ="${process.env.SITE_URL}/recuperar/senha/mudar/${req.body.email}" >Recuperar<a/>
+                <p>Email de recuperação de senha, clica no link  "recuperar" para finalizar o processo obrigado. </p><br/>
+                <a href ="${process.env.SITE_URL}/recuperar/senha/mudar/${req.body.email}" >Recuperar</a>
                 `, // html body
               });
             
@@ -399,7 +399,7 @@ router.post("/email/pagamento", async (req, res )=>{
                     text: "Seja bem vindo", // plain text body
                     html: `
 
-                    <b>Solicitacao de pagamento da loja ${req.body.nome} </b><br/><br/>
+                    <b>Solicitação de pagamento da loja ${req.body.nome} </b><br/><br/>
                     <b>Muito obrigado por usares  no nosso site, esperamos que continues a usar o nosso tite </b><br/><br/>
 
                     <table style=>
@@ -427,7 +427,7 @@ router.post("/email/pagamento", async (req, res )=>{
                     </tbody>
                   </table><br/><br/>
                   Valor a se pagar  :${Number(req.body.total).toFixed(2)} <br/> <br/>
-                  <a href="${req.body.url}" >Efectuar Pagamento</a>
+                  <a href="${req.body.url}" >Efectuar Pagamento</a><br/><br/>
 
                    Contactos da loja : <br/>
                    Telefone: ${req.body.telefone}<br/>
@@ -491,7 +491,7 @@ router.post("/email/cancela", async (req, res )=>{
             from: `"Vandjaline👻" <${process.env.EMAIL_FROM}>`, // sender address
             to: req.body.email, // list of receivers
             subject: "Saudações vandja , Aviso de canselamento !!", // Subject line
-            text: "Emial de canselamento", // plain text body
+            text: "Email de canselamento", // plain text body
             html: `
             
             <b>Email de canselamento a Loja ${req.body.loja} canselou o seu pedido </b><br/><br/>

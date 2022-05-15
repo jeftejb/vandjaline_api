@@ -21,8 +21,8 @@ const UserSchama = new mongoose.Schema({
     
     imagem:{type:String},
    
-    intermediario : {type:String , default:"Nao"},
-    entregador : {type:String , default:"Nao"},
+    intermediario : {type:String , default:"Não"},
+    entregador : {type:String , default:"Não"},
     codigoInter : {type:Number,  default:0},
     codigoConfirm : {type:Number,  default:0},
     confirmado:{
@@ -31,8 +31,8 @@ const UserSchama = new mongoose.Schema({
     confirmEmail:{
         type:Boolean, default:false , 
     },
-    pontos:{type:Number},
-    produtosVendidos:{type:Number},
+    pontos:{type:Number, default: 0},
+    produtosVendidos:{type:Number, default:0},
     login:{type:Boolean, default:false},
     logado:{type:Boolean, default:false},
     iban:{type:String},
