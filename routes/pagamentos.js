@@ -4,7 +4,7 @@ const {verificaToken, verificaTokenEautenticacao, verificaTokenEadmin } = requir
 
 //criar
 
-router.post("/", verificaToken, async (req, res) =>{
+router.post("/" , async (req, res) =>{
   
 const novoPagamento = new Pagamentos(req.body)
 try{
