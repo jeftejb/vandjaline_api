@@ -19,7 +19,7 @@ dotenv.config();
 
 
 
-  const allowlist = ['https://vandjaline.herokuapp.com', 'https://vandjaline-admin.herokuapp.com']
+  const allowlist = ['https://vandjaline.herokuapp.com', 'https://vandjaline-admin.herokuapp.com', 'http://localhost:3001']
 const corsOptionsDelegate =  (req, callback)=> {
  var corsOpts;
   if (allowlist.indexOf(req.header('Origin')) !== -1) {
@@ -54,7 +54,7 @@ app.use((req, res, next)=>{
 });
 */
 
-mongoose.connect(process.env.MONGO_URL /*'mongodb://127.0.0.1:27017/vandjaline_db'*/, {useNewUrlParser: true, useUnifiedTopology: true}).then(()=>{
+mongoose.connect(/*process.env.MONGO_URL*/'mongodb://127.0.0.1:27017/vandjaline_db', {useNewUrlParser: true, useUnifiedTopology: true}).then(()=>{
     console.log("Conexao Criada com sucesso");
 }).catch((error)=>{
     console.log("Error: erro ao criar a conexao com o banco de dados :"+error);
