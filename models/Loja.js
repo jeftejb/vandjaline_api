@@ -9,8 +9,8 @@ const LojaSchama = new mongoose.Schema({
     enderecoLoja :{type:String, required:true},
     provinciaLoja :{type:String, required:true},
     municipioLoja :{type:String, required:true},
-    actuacao:{type:String, required:true},
-    password:{type:String , required:true}, 
+    actuacao :{type:String, required:true},
+    password :{type:String , required:true}, 
     ativo:{
         type:Boolean, default:false , 
     },
@@ -29,7 +29,11 @@ const LojaSchama = new mongoose.Schema({
     
     imagem:{type:String},
     
-    descricao:{type:String, required:true}
+    descricao:{type:String, required:true}, 
+
+    plano:{type:String, default:"pendente"}, 
+    pagamento:{type:Number, default:0},
+    estatuPagamento:{type:String, default:"Nem_um"}
 }, 
 {timestamps:true}
 

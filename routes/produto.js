@@ -29,6 +29,19 @@ try{
 })
 
 
+//desativar produtos da loja 
+
+router.put("/desativar/produtos/loja/:id", verificaTokenEadmin, async (req , res)=>{
+   
+    try{
+        const updateProduto = await Produto.updateMany({id_loja :req.params.id}, {
+            $set:req.body
+        } , {new:true})
+        res.status(200).json(updateProduto)
+    }catch(err){res.status(500).json({err})}
+    })
+
+
 //actualizar recomendacoes
 
 router.put("/recomendacoes/:id", verificaToken, async (req , res)=>{

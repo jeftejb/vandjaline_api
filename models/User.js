@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
 
+
 const UserSchama = new mongoose.Schema({
     nomeCompleto :{type:String, required:true, unique:false},
     dataNascimento:{type:String, required:true},

@@ -509,6 +509,78 @@ router.post("/email/cancela", async (req, res )=>{
 })
 
 
+//email de solicitacao de pagamento da loja 
+
+
+
+router.post("/email/pagamento/loja", async (req, res )=>{
+
+
+    const authe2 = google.auth.OAuth2
+
+    const autCliente = new authe2(
+        process.env.GOODLE_CLIENTE_ID,
+        process.env.GOODLE_CLIENTE_CHAVE,
+        process.env.GOODLE_CLIENTE_URI
+    )
+    
+    
+    autCliente.setCredentials({
+        refresh_token : process.env.GOODLE_CLIENTE_TOKEN 
+    })
+    
+    const acessoToken = new Promise((resolve, reject)=>{
+        autCliente.getAccessToken((error, token)=>{
+            if(error) reject(error)
+            resolve(token)
+        })
+    })
+    
+    
+   
+    try{
+    
+        let transporter = nodemailer.createTransport({
+            service: "gmail",
+            host: "smtp.gmail.com",
+            port: 587,
+            secure: false, // true for 465, false for other ports
+            auth: {
+                type: "OAuth2",
+                user: process.env.EMAIL_FROM,
+                clientId: process.env.GOODLE_CLIENTE_ID, acessoToken,
+                clientSecret: process.env.GOODLE_CLIENTE_CHAVE,
+                refreshToken: process.env.GOODLE_CLIENTE_TOKEN,
+                
+            },
+          });
+        
+          // send mail with defined transport object
+             await transporter.sendMail({
+            from: `"Vandjaline👻" <${process.env.EMAIL_FROM}>`, // sender address
+            to: req.body.email, // list of receivers
+            subject: "Saudações vandja , Solicitacao de Pagamento !!", // Subject line
+            text: "Solicitacao de Pagamento", // plain text body
+            html: `
+            
+            <b> Solicitacao de pagamento do pacote : ${req.body.pacote} , para  ${req.body.loja} , no  valor de ${req.body.valor}  </b><br/><br/>
+            <b> Para finalizar o pagamento porfavor clique neste link: https://www.usekamba.com/u/vandjaline_vandjaline  </b><br/><br/>
+
+            <b> Se ainda nao possui a carteira Kamba clique no link para baixar : https://m.usekamba.com/convite/86C210   </b><br/><br/>
+            <a href ="${process.env.SITE_URL}/login" >Ir para o site<a/>
+            `, // html body
+          });
+        
+    
+    
+    }catch(erro){
+        console.log(erro)
+    
+    }
+    
+})
+
+
 
 
 

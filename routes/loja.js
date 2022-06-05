@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { isValidObjectId } = require("mongoose");
 const Loja = require("../models/Loja");
 const {verificaToken, verificaTokenEautenticacao, verificaTokenEadmin } = require("./verificaToken")
 
@@ -7,7 +8,7 @@ const {verificaToken, verificaTokenEautenticacao, verificaTokenEadmin } = requir
 router.put("/:id",verificaTokenEadmin, async (req , res)=>{
 
 if(req.body.password){
-    req.body.password = Cryptojs.AES.encrypt(
+    req.body.password = CryptoJS.AES.encrypt(
         req.body.password, process.env.PASS_SEC
         ).toString()
 }
@@ -18,6 +19,20 @@ try{
     res.status(200).json(updateLoja)
 }catch(err){res.status(500).json({err})}
 })
+
+//actualizar pagamnto e plano 
+
+
+router.put("/update/pacote/:id" , async (req, res)=>{
+
+    try{
+        const updateLoja = await Loja.findByIdAndUpdate({_id: String(req.params.id)}, {
+            $set:req.body
+        } , {new:true})
+        res.status(200).json(updateLoja)
+    }catch(err){res.status(500).json({err})}
+})
+
 
 //Delete estabelecimento
 
@@ -54,6 +69,20 @@ router.get("/" , async (req, res)=>{
         res.status(500).json({err})
     }
     })
+
+
+    //busca email loja 
+
+
+    router.get("/find/email/:email" , async (req, res)=>{
+    
+        try{
+            const  loja = await Loja.findOne({emailLoja : req.params.email})
+       res.status(200).json(loja)
+       }catch(err){
+           res.status(500).json({err})
+       }
+       }) 
 
     //Buscar todos  estabelecimentos - site
 
