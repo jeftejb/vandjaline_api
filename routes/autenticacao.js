@@ -8,6 +8,9 @@ const nodemailer = require("nodemailer");
 const dotenv = require("dotenv");
 const {google} = require("googleapis")
 
+const {sleep}  = require("./temporizador")
+
+const tempo = 3000;
 
 //var pdfMake = require('pdfmake/build/pdfmake.js');
 //var pdfFonts = require('pdfmake/build/vfs_fonts.js');
@@ -35,6 +38,8 @@ const newUser = new User({
         req.body.password, process.env.PASS_SEC
         ).toString()
 })
+
+await sleep(tempo);
 
 try{
 const salvarUsuario = await newUser.save()
@@ -66,7 +71,8 @@ router.post("/registro/estabelecimento", async (req, res)=>{
             ).toString()
     })
   
-    
+    await sleep(tempo);
+
     try{
     const salvarEstabelecimento  = await newEstabelecimento.save()
     res.status(200).json(salvarEstabelecimento)
@@ -80,6 +86,9 @@ router.post("/registro/estabelecimento", async (req, res)=>{
 //login usuario
 
 router.post("/login/usuario", async (req, res)=>{
+
+    await sleep(tempo);
+
 try{
     const user = await User.findOne({nomeUsuario : req.body.nomeUsuario});
     !user &&  res.status(401).send(json({Nome:"Nome Errado"}))
@@ -109,6 +118,7 @@ const {password, ...others} = user._doc
 
 router.post("/confirm",verificaToken, async (req, res)=>{
  
+    await sleep(tempo);
 
     try{
         const user = await User.findById(req.body.id);
@@ -136,6 +146,8 @@ router.post("/confirm",verificaToken, async (req, res)=>{
 
 //login Estabelecimento
 router.post("/login/estabelecimento", async (req, res)=>{
+
+    await sleep(tempo);
   
     try{
         const loja = await Loja.findOne({emailLoja : req.body.nomeUsuario});
@@ -185,7 +197,7 @@ router.post("/email", async (req, res )=>{
         })
     })
     
-    
+   
    
     try{
     

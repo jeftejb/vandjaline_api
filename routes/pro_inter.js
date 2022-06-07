@@ -2,6 +2,10 @@ const router = require("express").Router();
 const ProInter = require("./../models/Pro_inter");
 const {verificaToken, verificaTokenEautenticacao, verificaTokenEadmin } = require("./verificaToken");
 
+const {sleep}  = require("./temporizador");
+
+
+const tempo = 3000;
 
 router.post("/insert", verificaToken, async (req, res)=>{
      const prod_d = new ProInter({
@@ -16,6 +20,8 @@ router.post("/insert", verificaToken, async (req, res)=>{
          url_pro:req.body.url_pro
      })
      
+     sleep(tempo)
+
     try{
       
         const salvarInfPro = await prod_d.save();

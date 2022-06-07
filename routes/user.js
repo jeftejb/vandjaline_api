@@ -6,9 +6,16 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
+const {sleep}  = require("./temporizador");
+
+
+const tempo = 3000;
+
 //atualizar
 
 router.put("/:id" ,async (req , res)=>{
+
+    sleep(tempo)
 
  if(req.body.pontos){
     try{
