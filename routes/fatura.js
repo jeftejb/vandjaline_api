@@ -79,7 +79,7 @@ router.get("/loja/:id", verificaTokenEautenticacao, async (req, res)=>{
    // const id_loja ={id_produto:req.params.id}
     try{
         //console.log(req.params)
-    const fatura  = await Fatura.find({"produtos.id_loja":req.params.id})
+    const fatura  = await Fatura.find({ estatosPedido:null, "produtos.id_loja":req.params.id })
     res.status(200).json(fatura)
    
     }catch(err){
@@ -87,26 +87,66 @@ router.get("/loja/:id", verificaTokenEautenticacao, async (req, res)=>{
     }
     })
 
+    //historico pedidos loja
+
+    router.get("/loja/historico/:id", verificaTokenEautenticacao, async (req, res)=>{
+        // const id_loja ={id_produto:req.params.id}
+         try{
+             //console.log(req.params)
+         const fatura  = await Fatura.find({"produtos.id_loja":req.params.id })
+         res.status(200).json(fatura)
+        
+         }catch(err){
+             res.status(500).json({err})
+         }
+         })
+     
+
+    //fatura usuario com limite de 5
+
     router.get("/user/:id",  async (req, res)=>{
         try{
-        const fatura  = await Fatura.find({id_usuario: req.params.id} )
+        const fatura  = await Fatura.find({id_usuario: req.params.id}).sort({createdAt:-1}).limit(3)
         res.status(200).json(fatura)
         }catch(err){
             res.status(500).json({err})
         }
         })
 
+//fatura usuario sem limite
+
+router.get("/his/:id",  async (req, res)=>{
+    try{
+    const fatura  = await Fatura.find({id_usuario: req.params.id})
+    res.status(200).json(fatura)
+    }catch(err){
+        res.status(500).json({err})
+    }
+    })
+
+
     //Buscar  fatura
 
-router.get("/", verificaTokenEadmin,  async (req, res)=>{
+router.get("/pendente/fatura", verificaTokenEadmin,  async (req, res)=>{
     try{
-        const fatura = await Fatura.find()
+        const fatura = await Fatura.find({estatosPedido:null})
 
     res.status(200).json(fatura)
     }catch(err){
         res.status(500).json({err})
     }
     })
+
+    //get faturas 
+    router.get("/", verificaTokenEadmin,  async (req, res)=>{
+        try{
+            const fatura = await Fatura.find()
+    
+        res.status(200).json(fatura)
+        }catch(err){
+            res.status(500).json({err})
+        }
+        })
 
     //Pegar o montante
 

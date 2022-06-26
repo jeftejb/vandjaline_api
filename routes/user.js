@@ -15,6 +15,8 @@ const tempo = 3000;
 
 router.put("/:id" ,async (req , res)=>{
 
+   
+
     sleep(tempo)
 
  if(req.body.pontos){
@@ -28,10 +30,10 @@ router.put("/:id" ,async (req , res)=>{
         } , {new:true})
         res.status(200).json(updateUsuario)
     }catch(err){res.status(500).json({err})}
-}else{
-    
+}else{  
+
 try{
-   
+    
     const updateUsuario = await User.findByIdAndUpdate(req.params.id, {
         $set:req.body
     } , {new:true})
@@ -43,6 +45,8 @@ try{
 // actualizar passe 
 
 router.put("/mudar/pass/" , async (req, res)=>{
+
+    sleep(tempo)
   
         req.body.password = CryptoJS.AES.encrypt(
             req.body.password, process.env.PASS_SEC
