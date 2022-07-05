@@ -35,7 +35,7 @@ const newUser = new User({
     email:req.body.email,   
     imagem:req.body.imagem,  
     nomeUsuario:req.body.nomeUsuario, 
-    idConvidado:req.body.idConvidado,
+    convidado:req.body.id,
     password:CryptoJS.AES.encrypt(
         req.body.password, process.env.PASS_SEC
         ).toString()

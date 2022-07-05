@@ -38,7 +38,7 @@ const UserSchama = new mongoose.Schema({
     logado:{type:Boolean, default:false},
     iban:{type:String},
     kamba:{type:String},
-    idConvidado:{type:String},
+    convidado:{type:String},
 }, 
 {timestamps:true}
 
