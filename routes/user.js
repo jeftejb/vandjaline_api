@@ -15,10 +15,6 @@ const tempo = 3000;
 
 router.put("/:id" ,async (req , res)=>{
 
-   
-
-    sleep(tempo)
-
  if(req.body.pontos){
     try{
         const user  = await User.findById(req.params.id)
