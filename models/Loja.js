@@ -24,7 +24,7 @@ const LojaSchama = new mongoose.Schema({
         type:Boolean, default:false , 
     },
     kamba:{
-        type:String
+        type:String ,
     },
     
     imagem:{type:String},
@@ -33,7 +33,8 @@ const LojaSchama = new mongoose.Schema({
 
     plano:{type:String, default:"pendente"}, 
     pagamento:{type:Number, default:0},
-    estatuPagamento:{type:String, default:"Nem_um"}
+    estatuPagamento:{type:String, default:"Nem_um"},
+    funcionamento:{type:String}
 }, 
 {timestamps:true}
 
