@@ -96,6 +96,19 @@ router.get("/", verificaTokenEautenticacao,  async (req, res)=>{
         })
     
 
+        //pagamentpo data 
+
+        router.get("/data/:id",  async (req, res)=>{
+   
+            try{
+                const pagamentos = await Pagamentos.find({id_usuario : req.params.id}).sort({createdAt:-1}).limit(1);    
+            res.status(200).json(pagamentos)
+            }catch(err){
+                res.status(500).json({err})
+            }
+            })
+        
+
   
 
 module.exports = router;
