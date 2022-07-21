@@ -9,6 +9,7 @@ const SiteSchama = new mongoose.Schema({
     telefone:{type:Array},
     localizacao:{type:String},
     email:{type:Array},  
+    token_email:{type:String},
 
    
 }, 

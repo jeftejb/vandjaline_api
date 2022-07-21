@@ -5,7 +5,7 @@ const { verificaTokenEadmin } = require("./verificaToken")
 
 
 //nova actualizacao 
-router.post("/img", verificaTokenEadmin, async (req, res)=>{
+router.post("/inf", verificaTokenEadmin, async (req, res)=>{
     const novaAc = new SiteManage(req.body)
 
     try{
@@ -74,14 +74,29 @@ router.get("/img/:id", async (req, res)=>{
 
 // buscar informacao
 router.get("/inf", async (req, res)=>{
-    
+   
     try{
         const buscarInf  = await SiteManage.find()
-        res.status(200).json(buscarImagem)
+        res.status(200).json(buscarInf)
     }catch(error){
         res.status(500).json({error})
     }
 })
+
+
+//update token site 
+
+router.put("/token/update", async (req, res)=>{
+ 
+    try{
+        const updateProduto = await SiteManage.findByIdAndUpdate(req.body.id, {
+            $set:req.body.token
+        } , {new:true})
+        res.status(200).json(updateProduto)
+    }catch(err){res.status(500).json({err})}
+})
+
+
 
 
 
@@ -106,6 +121,26 @@ router.delete("/inf" , async(req, res)=>{
          res.status(500).json({error})
     }
 })
+
+//actualizar token 
+
+
+
+router.put("/", verificaTokenEadmin, async (req , res)=>{
+
+    const novaInf= new SiteManage(req.body)
+
+    try{
+          const salvar = await novaAcImagem.save()
+          res.status(200).json(salvarAcImagem)
+    }catch(error){
+        res.status(500).json({error})
+    }
+    })
+    
+    
+
+
 
 
 module.exports = router

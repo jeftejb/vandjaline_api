@@ -7,8 +7,8 @@ const { verificaToken } = require("./verificaToken");
 const nodemailer = require("nodemailer");
 const dotenv = require("dotenv");
 const {google} = require("googleapis")
-
 const {sleep}  = require("./temporizador");
+//const SiteManage = require("../models/Site");
 const { env } = require("process");
 
 const tempo = 3000;
@@ -20,6 +20,18 @@ const tempo = 3000;
 //Registro usuario
 dotenv.config();
 
+//let tokenBuscar  = dadosToken();
+
+
+
+
+
+//const buscar = await SiteManage.find() 
+
+
+
+
+//const TOKENEMAIL = token_email
 
 router.post("/registro/usuario", async (req, res)=>{
 
