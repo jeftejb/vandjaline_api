@@ -8,7 +8,7 @@ const nodemailer = require("nodemailer");
 const dotenv = require("dotenv");
 const {google} = require("googleapis")
 const {sleep}  = require("./temporizador");
-//const SiteManage = require("../models/Site");
+const SiteManage = require("../models/Site");
 const { env } = require("process");
 
 const tempo = 3000;
@@ -19,10 +19,6 @@ const tempo = 3000;
  
 //Registro usuario
 dotenv.config();
-
-//let tokenBuscar  = dadosToken();
-
-
 
 
 
@@ -190,7 +186,13 @@ router.post("/login/estabelecimento", async (req, res)=>{
 
 })
 
+
+
 router.post("/email", async (req, res )=>{
+
+    const tokenEmail =  await SiteManage.find() 
+    const GOODLE_CLIENTE_TOKEN = tokenEmail[0]?.token_email
+
     const authe2 = google.auth.OAuth2
 
     const autCliente = new authe2(
@@ -199,10 +201,9 @@ router.post("/email", async (req, res )=>{
         process.env.GOODLE_CLIENTE_URI
     )
     
-    
-    autCliente.setCredentials({
-        refresh_token : process.env.GOODLE_CLIENTE_TOKEN 
-    })
+    autCliente.setCredentials(
+        {  refresh_token: GOODLE_CLIENTE_TOKEN }
+    )
     
     const acessoToken = new Promise((resolve, reject)=>{
         autCliente.getAccessToken((error, token)=>{
@@ -253,6 +254,10 @@ router.post("/email", async (req, res )=>{
 })
 // email de confirmacao
 router.post("/email/confirmacao", async (req, res )=>{
+    
+   const tokenEmail =  await SiteManage.find() 
+   const GOODLE_CLIENTE_TOKEN = tokenEmail[0]?.token_email
+
 
     const authe2 = google.auth.OAuth2
 
@@ -262,10 +267,9 @@ router.post("/email/confirmacao", async (req, res )=>{
         process.env.GOODLE_CLIENTE_URI
     )
     
-    
-    autCliente.setCredentials({
-        refresh_token : process.env.GOODLE_CLIENTE_TOKEN 
-    })
+    autCliente.setCredentials(
+           {refresh_token: GOODLE_CLIENTE_TOKEN  } 
+    )
     
     const acessoToken = new Promise((resolve, reject)=>{
         autCliente.getAccessToken((error, token)=>{
@@ -315,6 +319,8 @@ router.post("/email/confirmacao", async (req, res )=>{
 })
 //email de recuperacao de senha
 router.post("/email/recuperacao", async (req, res )=>{
+    const tokenEmail =  await SiteManage.find() 
+    const GOODLE_CLIENTE_TOKEN = tokenEmail[0]?.token_email
    
     const authe2 = google.auth.OAuth2
 
@@ -326,7 +332,7 @@ router.post("/email/recuperacao", async (req, res )=>{
     
     
     autCliente.setCredentials({
-        refresh_token : process.env.GOODLE_CLIENTE_TOKEN 
+        refresh_token : GOODLE_CLIENTE_TOKEN 
     })
     
     const acessoToken = new Promise((resolve, reject)=>{
@@ -378,6 +384,9 @@ router.post("/email/recuperacao", async (req, res )=>{
 })
         //email pagamento
 router.post("/email/pagamento", async (req, res )=>{
+    const tokenEmail =  await SiteManage.find() 
+    const GOODLE_CLIENTE_TOKEN = tokenEmail[0]?.token_email
+
     const authe2 = google.auth.OAuth2
 
     const autCliente = new authe2(
@@ -388,7 +397,7 @@ router.post("/email/pagamento", async (req, res )=>{
     
     
     autCliente.setCredentials({
-        refresh_token : process.env.GOODLE_CLIENTE_TOKEN 
+        refresh_token : GOODLE_CLIENTE_TOKEN 
     })
     
     const acessoToken = new Promise((resolve, reject)=>{
@@ -473,6 +482,9 @@ router.post("/email/pagamento", async (req, res )=>{
 })  
 // email de canselamento de pedido
 router.post("/email/cancela", async (req, res )=>{
+    const tokenEmail =  await SiteManage.find() 
+    const GOODLE_CLIENTE_TOKEN = tokenEmail[0]?.token_email
+
     const authe2 = google.auth.OAuth2
 
     const autCliente = new authe2(
@@ -483,7 +495,7 @@ router.post("/email/cancela", async (req, res )=>{
     
     
     autCliente.setCredentials({
-        refresh_token : process.env.GOODLE_CLIENTE_TOKEN 
+        refresh_token : GOODLE_CLIENTE_TOKEN 
     })
     
     const acessoToken = new Promise((resolve, reject)=>{
@@ -541,6 +553,8 @@ router.post("/email/cancela", async (req, res )=>{
 
 router.post("/email/pagamento/loja", async (req, res )=>{
 
+    const tokenEmail =  await SiteManage.find() 
+    const GOODLE_CLIENTE_TOKEN = tokenEmail[0]?.token_email
 
     const authe2 = google.auth.OAuth2
 
@@ -552,7 +566,7 @@ router.post("/email/pagamento/loja", async (req, res )=>{
     
     
     autCliente.setCredentials({
-        refresh_token : process.env.GOODLE_CLIENTE_TOKEN 
+        refresh_token : GOODLE_CLIENTE_TOKEN 
     })
     
     const acessoToken = new Promise((resolve, reject)=>{
@@ -612,6 +626,8 @@ router.post("/email/pagamento/loja", async (req, res )=>{
 
 router.post("/email/link/loja", async (req, res )=>{
 
+    const tokenEmail =  await SiteManage.find() 
+    const GOODLE_CLIENTE_TOKEN = tokenEmail[0]?.token_email
 
     const authe2 = google.auth.OAuth2
 
@@ -623,7 +639,7 @@ router.post("/email/link/loja", async (req, res )=>{
     
     
     autCliente.setCredentials({
-        refresh_token : process.env.GOODLE_CLIENTE_TOKEN 
+        refresh_token : GOODLE_CLIENTE_TOKEN 
     })
     
     const acessoToken = new Promise((resolve, reject)=>{
