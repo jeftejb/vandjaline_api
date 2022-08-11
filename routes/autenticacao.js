@@ -226,7 +226,7 @@ router.post("/email", async (req, res )=>{
                 user: process.env.EMAIL_FROM,
                 clientId: process.env.GOODLE_CLIENTE_ID, acessoToken,
                 clientSecret: process.env.GOODLE_CLIENTE_CHAVE,
-                refreshToken: process.env.GOODLE_CLIENTE_TOKEN,
+                refreshToken: GOODLE_CLIENTE_TOKEN,
                 
             },
           });
@@ -292,7 +292,7 @@ router.post("/email/confirmacao", async (req, res )=>{
                 user: process.env.EMAIL_FROM,
                 clientId: process.env.GOODLE_CLIENTE_ID, acessoToken,
                 clientSecret: process.env.GOODLE_CLIENTE_CHAVE,
-                refreshToken: process.env.GOODLE_CLIENTE_TOKEN,
+                refreshToken: GOODLE_CLIENTE_TOKEN,
                 
             },
           });
@@ -356,7 +356,7 @@ router.post("/email/recuperacao", async (req, res )=>{
                 user: process.env.EMAIL_FROM,
                 clientId: process.env.GOODLE_CLIENTE_ID, acessoToken,
                 clientSecret: process.env.GOODLE_CLIENTE_CHAVE,
-                refreshToken: process.env.GOODLE_CLIENTE_TOKEN,
+                refreshToken: GOODLE_CLIENTE_TOKEN,
                 
             },
           });
@@ -421,7 +421,7 @@ router.post("/email/pagamento", async (req, res )=>{
                 user: process.env.EMAIL_FROM,
                 clientId: process.env.GOODLE_CLIENTE_ID, acessoToken,
                 clientSecret: process.env.GOODLE_CLIENTE_CHAVE,
-                refreshToken: process.env.GOODLE_CLIENTE_TOKEN,
+                refreshToken: GOODLE_CLIENTE_TOKEN,
                 
             },
           });
@@ -519,7 +519,7 @@ router.post("/email/cancela", async (req, res )=>{
                 user: process.env.EMAIL_FROM,
                 clientId: process.env.GOODLE_CLIENTE_ID, acessoToken,
                 clientSecret: process.env.GOODLE_CLIENTE_CHAVE,
-                refreshToken: process.env.GOODLE_CLIENTE_TOKEN,
+                refreshToken: GOODLE_CLIENTE_TOKEN,
                 
             },
           });
@@ -590,7 +590,7 @@ router.post("/email/pagamento/loja", async (req, res )=>{
                 user: process.env.EMAIL_FROM,
                 clientId: process.env.GOODLE_CLIENTE_ID, acessoToken,
                 clientSecret: process.env.GOODLE_CLIENTE_CHAVE,
-                refreshToken: process.env.GOODLE_CLIENTE_TOKEN,
+                refreshToken: GOODLE_CLIENTE_TOKEN,
                 
             },
           });
@@ -663,7 +663,7 @@ router.post("/email/link/loja", async (req, res )=>{
                 user: process.env.EMAIL_FROM,
                 clientId: process.env.GOODLE_CLIENTE_ID, acessoToken,
                 clientSecret: process.env.GOODLE_CLIENTE_CHAVE,
-                refreshToken: process.env.GOODLE_CLIENTE_TOKEN,
+                refreshToken: GOODLE_CLIENTE_TOKEN,
                 
             },
           });
