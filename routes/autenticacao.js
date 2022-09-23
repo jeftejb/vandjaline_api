@@ -603,8 +603,8 @@ router.post("/email/pagamento/loja", async (req, res )=>{
             text: "Solicitacao de Pagamento", // plain text body
             html: `
             
-            <b> Solicitacao de pagamento do pacote : ${req.body.pacote} , para  ${req.body.loja} , no  valor de ${req.body.valor}  </b><br/><br/>
-            <b> Para finalizar o pagamento porfavor clique neste link: https://www.usekamba.com/u/vandjaline_vandjaline  </b><br/><br/>
+            <b> Solicitação de pagamento do pacote : ${req.body.pacote} , para  ${req.body.loja} , no  valor de ${req.body.valor}  </b><br/><br/>
+            <b> Para finalizar o pagamento por favor clique aqui: https://www.usekamba.com/u/vandjaline_vandjaline  </b><br/><br/>
 
             <b> Se ainda nao possui a carteira Kamba clique no link para baixar : https://m.usekamba.com/convite/86C210   </b><br/><br/>
             <a href ="${process.env.SITE_URL}/login" >Ir para o site<a/>

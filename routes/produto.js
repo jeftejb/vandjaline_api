@@ -1,11 +1,14 @@
 const router = require("express").Router();
 const Produto = require("../models/Produtos");
 const {verificaToken, verificaTokenEadmin } = require("./verificaToken")
+const {sleep}  = require("./temporizador");
 
+const tempo = 2000;
 //criar
 
 router.post("/",  async (req, res) =>{
 const novoProduto = new Produto(req.body)
+await sleep(tempo);
 try{
 
     const salvarProduto = await novoProduto.save()
@@ -19,7 +22,17 @@ try{
 //actualizar
 
 router.put("/:id", verificaTokenEadmin, async (req , res)=>{
+    await sleep(tempo);
+try{
+    const updateProduto = await Produto.findByIdAndUpdate(req.params.id, {
+        $set:req.body
+    } , {new:true})
+    res.status(200).json(updateProduto)
+}catch(err){res.status(500).json({err})}
+})
 
+router.put("/menos/:id", async (req , res)=>{
+   
 try{
     const updateProduto = await Produto.findByIdAndUpdate(req.params.id, {
         $set:req.body
