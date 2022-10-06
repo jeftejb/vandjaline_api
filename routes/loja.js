@@ -2,11 +2,14 @@ const router = require("express").Router();
 const { isValidObjectId } = require("mongoose");
 const Loja = require("../models/Loja");
 const {verificaToken, verificaTokenEautenticacao, verificaTokenEadmin } = require("./verificaToken")
+const CryptoJS = require("crypto-js");
+const {sleep}  = require("./temporizador");
 
+const tempo = 3000;
 //atualizar Estabelecimento
 
 router.put("/:id",verificaTokenEadmin, async (req , res)=>{
-
+    sleep(tempo)
 if(req.body.password){
     req.body.password = CryptoJS.AES.encrypt(
         req.body.password, process.env.PASS_SEC
@@ -33,6 +36,30 @@ router.put("/update/pacote/:id" , async (req, res)=>{
     }catch(err){res.status(500).json({err})}
 })
 
+
+
+// actualizar passe estabelecimento
+
+router.put("/mudar/pass/loja" , async (req, res)=>{
+
+    sleep(tempo)
+  
+        req.body.password = CryptoJS.AES.encrypt(
+            req.body.password, process.env.PASS_SEC
+            ).toString()
+         
+            const dados = {password : req.body.password}
+            console.log(dados)
+            try{
+       
+                const updateUsuario = await User.findOneAndUpdate({emailLoja:req.body.email} , {
+                    $set:dados
+                } , {new:true})
+                res.status(200).json(updateUsuario)
+            }catch(err){res.status(500).json({err})}
+    
+    
+})
 
 //Delete estabelecimento
 

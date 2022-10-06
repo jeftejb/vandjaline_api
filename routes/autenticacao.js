@@ -365,11 +365,11 @@ router.post("/email/recuperacao", async (req, res )=>{
                  await transporter.sendMail({
                 from: `"Vandjaline👻" <${process.env.EMAIL_FROM}>`, // sender address
                 to: req.body.email, // list of receivers
-                subject: "Saudações vandja Recuperação de senha ✔", // Subject line
+                subject: "Recuperação de senha ✔", // Subject line
                 text: "Seja bem vindo/a", // plain text body
                 html: `
                 
-                <p>Email de recuperação de senha, clica no link  "recuperar" para finalizar o processo obrigado. </p><br/>
+                <p>Email de recuperação de senha, clica no link  "Recuperar" para finalizar o processo de recuperação obrigado. </p><br/>
                 <a href ="${process.env.SITE_URL}/recuperar/senha/mudar/${req.body.email}" >Recuperar</a>
                 `, // html body
               });
@@ -382,7 +382,81 @@ router.post("/email/recuperacao", async (req, res )=>{
         }
         
 })
-        //email pagamento
+    
+
+//email de recuperacao de senha do estabelecimento
+
+
+
+router.post("/email/recuperacao/estabelecimento", async (req, res )=>{
+    const tokenEmail =  await SiteManage.find() 
+    const GOODLE_CLIENTE_TOKEN = tokenEmail[0]?.token_email
+   
+    const authe2 = google.auth.OAuth2
+
+    const autCliente = new authe2(
+        process.env.GOODLE_CLIENTE_ID,
+        process.env.GOODLE_CLIENTE_CHAVE,
+        process.env.GOODLE_CLIENTE_URI
+    )
+    
+    
+    autCliente.setCredentials({
+        refresh_token : GOODLE_CLIENTE_TOKEN 
+    })
+    
+    const acessoToken = new Promise((resolve, reject)=>{
+        autCliente.getAccessToken((error, token)=>{
+            if(error) reject(error)
+            resolve(token)
+        })
+    })
+    
+    
+   
+    try{
+    
+        let transporter = nodemailer.createTransport({
+            service: "gmail",
+            host: "smtp.gmail.com",
+            port: 587,
+            secure: false, // true for 465, false for other ports
+            auth: {
+                type: "OAuth2",
+                user: process.env.EMAIL_FROM,
+                clientId: process.env.GOODLE_CLIENTE_ID, acessoToken,
+                clientSecret: process.env.GOODLE_CLIENTE_CHAVE,
+                refreshToken: GOODLE_CLIENTE_TOKEN,
+                
+            },
+          });
+            
+              // send mail with defined transport object
+                 await transporter.sendMail({
+                from: `"Vandjaline👻" <${process.env.EMAIL_FROM}>`, // sender address
+                to: req.body.email, // list of receivers
+                subject: " Recuperação de senha ✔", // Subject line
+                text: "Seja bem vindo/a", // plain text body
+                html: `
+                
+                <p>Email de recuperação de senha, clica no link  "Recuperar" para finalizar o processo de recuperação obrigado. </p><br/>
+                <a href ="${process.env.SITE_URL_ADMIN}/recuperar/senha/mudar/${req.body.email}" >Recuperar</a>
+                `, // html body
+              });
+            
+        
+        
+        }catch(erro){
+            console.log(erro)
+        
+        }
+        
+})
+
+
+
+
+//email pagamento
 router.post("/email/pagamento", async (req, res )=>{
     const tokenEmail =  await SiteManage.find() 
     const GOODLE_CLIENTE_TOKEN = tokenEmail[0]?.token_email
