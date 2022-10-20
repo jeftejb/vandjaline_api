@@ -238,7 +238,15 @@ router.post("/email", async (req, res )=>{
             text: "Codigo de confirmação", // plain text body
             html: `
             
-            <b>O seu codigo de confirmação é : ${req.body.conteudo}</b>
+            <b>O seu codigo de confirmação é : ${req.body.conteudo}</b><br/>
+
+           <br/>
+            <span>  
+            Vandjaline<br/>
+            uservandja@gmail.com<br/>
+            +244948992170<br/>
+            https://www.vandjaline.com
+            </span>
             
             `, // html body
           });
@@ -306,6 +314,15 @@ router.post("/email/confirmacao", async (req, res )=>{
             
             <b>Muito obrigado por se inscrever no nosso site, esperamos que tenha uma boa esperiencia navegando no nosso site, mas para concluir o cadastro por favor clique em confirmar cadastro</b><p/><br/>
             <a href ="${process.env.SITE_URL}/confirmar/${req.body.id}" >Confirmar cadastro </a>
+            
+            <br/>
+            <span>  
+            Vandjaline<br/>
+            uservandja@gmail.com<br/>
+            +244948992170<br/>
+            https://www.vandjaline.com
+            </span>
+            
             `, // html body
           });
         
@@ -371,6 +388,15 @@ router.post("/email/recuperacao", async (req, res )=>{
                 
                 <p>Email de recuperação de senha, clica no link  "Recuperar" para finalizar o processo de recuperação obrigado. </p><br/>
                 <a href ="${process.env.SITE_URL}/recuperar/senha/mudar/${req.body.email}" >Recuperar</a>
+               
+                <br/>
+                <span>  
+                Vandjaline<br/>
+                uservandja@gmail.com<br/>
+                +244948992170<br/>
+                https://www.vandjaline.com
+                </span>
+               
                 `, // html body
               });
             
@@ -441,6 +467,15 @@ router.post("/email/recuperacao/estabelecimento", async (req, res )=>{
                 
                 <p>Email de recuperação de senha, clica no link  "Recuperar" para finalizar o processo de recuperação obrigado. </p><br/>
                 <a href ="${process.env.SITE_URL_ADMIN}/recuperar/senha/mudar/${req.body.email}" >Recuperar</a>
+                
+                <br/>
+                <span>  
+                Vandjaline<br/>
+                uservandja@gmail.com<br/>
+                +244948992170<br/>
+                https://www.vandjaline.com
+                </span>
+                
                 `, // html body
               });
             
@@ -509,7 +544,7 @@ router.post("/email/pagamento", async (req, res )=>{
                     html: `
 
                     <b>Solicitação de pagamento da loja ${req.body.nome} </b><br/><br/>
-                    <b>Muito obrigado por usares  no nosso site, esperamos que continues a usar o nosso tite </b><br/><br/>
+                    <b>Muito obrigado por usares  no nosso site, esperamos que continues a usar o nosso site </b><br/><br/>
 
                     <table style=>
                     <thead>
@@ -535,13 +570,21 @@ router.post("/email/pagamento", async (req, res )=>{
                     ))}
                     </tbody>
                   </table><br/><br/>
-                  Valor a se pagar  :${Number(req.body.total).toFixed(2)} <br/> <br/>
+                  Valor a se pagar  :${Number(req.body?.total).toFixed(2)} <br/> <br/>
                   <a href="${req.body.url}" >Efectuar Pagamento</a><br/><br/>
 
                    Contactos da loja : <br/>
-                   Telefone: ${req.body.telefone}<br/>
-                   email: ${req.body.emailLoja}<br/><br/>
+                   Telefone: ${req.body?.telefone}<br/>
+                   email: ${req.body?.emailLoja}<br/><br/>
 
+
+                   <br/>
+                   <span>  
+                   Vandjaline<br/>
+                   uservandja@gmail.com<br/>
+                   +244948992170<br/>
+                   https://www.vandjaline.com
+                   </span>
                    
                     `, // html body
                   });
@@ -603,11 +646,19 @@ router.post("/email/cancela", async (req, res )=>{
             from: `"Vandjaline👻" <${process.env.EMAIL_FROM}>`, // sender address
             to: req.body.email, // list of receivers
             subject: "Saudações vandja , Aviso de canselamento !!", // Subject line
-            text: "Email de canselamento", // plain text body
+            text: "Email de cancelamento", // plain text body
             html: `
             
-            <b>Email de canselamento a Loja ${req.body.loja} canselou o seu pedido </b><br/><br/>
+            <b>Email de cancelamento a Loja ${req.body.loja} cancelou o seu pedido </b><br/><br/>
             <a href ="${process.env.SITE_URL}/login" >Ir para o site<a/>
+            
+            <br/>
+            <span>  
+            Vandjaline<br/>
+            uservandja@gmail.com<br/>
+            +244948992170<br/>
+            https://www.vandjaline.com
+            </span>
             `, // html body
           });
         
@@ -673,8 +724,8 @@ router.post("/email/pagamento/loja", async (req, res )=>{
              await transporter.sendMail({
             from: `"Vandjaline👻" <${process.env.EMAIL_FROM}>`, // sender address
             to: req.body.email, // list of receivers
-            subject: "Saudações vandja , Solicitacao de Pagamento !!", // Subject line
-            text: "Solicitacao de Pagamento", // plain text body
+            subject: "Saudações vandja , Solicitação de Pagamento !!", // Subject line
+            text: "Solicitação de Pagamento", // plain text body
             html: `
             
             <b> Solicitação de pagamento do pacote : ${req.body.pacote} , para  ${req.body.loja} , no  valor de ${req.body.valor}  </b><br/><br/>
@@ -682,6 +733,15 @@ router.post("/email/pagamento/loja", async (req, res )=>{
 
             <b> Se ainda nao possui a carteira Kamba clique no link para baixar : https://m.usekamba.com/convite/86C210   </b><br/><br/>
             <a href ="${process.env.SITE_URL}/login" >Ir para o site<a/>
+           
+            <br/>
+            <span>  
+            Vandjaline<br/>
+            uservandja@gmail.com<br/>
+            +244948992170<br/>
+            https://www.vandjaline.com
+            </span>
+           
             `, // html body
           });
         
@@ -756,6 +816,15 @@ router.post("/email/link/loja", async (req, res )=>{
 
             <b> Se ainda nao possui a carteira Kamba clique no link para baixar : https://m.usekamba.com/convite/86C210   </b><br/><br/>
             <a href ="${process.env.SITE_URL}/login" >Ir para o site<a/>
+
+
+            <br/>
+            <span>  
+            Vandjaline<br/>
+            uservandja@gmail.com<br/>
+            +244948992170<br/>
+            https://www.vandjaline.com
+            </span>
             `, // html body
           });
         
