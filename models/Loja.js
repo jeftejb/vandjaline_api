@@ -2,13 +2,13 @@ const mongoose = require("mongoose")
 
 const LojaSchama = new mongoose.Schema({
     nomeLoja :{type:String, required:true, unique:true},
-    gerenteLoja :{type:String, required:true},
+    gerenteLoja :{type:String, required:false},
     nifLoja :{type:String, required:true},
     emailLoja :{type:String, required:true, unique:true},
     telefoneLoja :{type:Number, required:true, unique:true},
-    enderecoLoja :{type:String, required:true},
-    provinciaLoja :{type:String, required:true},
-    municipioLoja :{type:String, required:true},
+    enderecoLoja :{type:String, required:false},
+    provinciaLoja :{type:String, required:false},
+    municipioLoja :{type:String, required:false},
     actuacao :{type:String, required:true},
     password :{type:String , required:true}, 
     ativo:{
@@ -29,7 +29,7 @@ const LojaSchama = new mongoose.Schema({
     
     imagem:{type:String},
     
-    descricao:{type:String, required:true}, 
+    descricao:{type:String, required:false}, 
 
     plano:{type:String, default:"pendente"}, 
     pagamento:{type:Number, default:0},

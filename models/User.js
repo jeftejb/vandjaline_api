@@ -3,15 +3,15 @@ const mongoose = require("mongoose")
 
 const UserSchama = new mongoose.Schema({
     nomeCompleto :{type:String, required:true, unique:false},
-    dataNascimento:{type:String, required:true},
-    sexo:{type:String, required:true},
+    dataNascimento:{type:String, required:false},
+    sexo:{type:String, required:false},
     numeroTelefone : {type:Number, required:true, unique:true},
-    pais:{type:String, required:true},
-    provincia : {type:String, required:true, unique:false},
-    municipio : {type:String, required:true, unique:false},
-    endereco :{type:String, required:true},
+    pais:{type:String, required:false},
+    provincia : {type:String, required:false, unique:false},
+    municipio : {type:String, required:false, unique:false},
+    endereco :{type:String, required:false},
     email:{type:String, required:true, unique:true},
-    nomeUsuario:{type:String, required:true, unique:true}, 
+    nomeUsuario:{type:String, required:false, unique:false}, 
     password:{type:String , required:true}, 
     isAdmin:{
         type:Boolean, default:false , 
