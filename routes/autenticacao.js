@@ -33,16 +33,16 @@ router.post("/registro/usuario", async (req, res)=>{
 
 const newUser = new User({
     nomeCompleto:req.body.nomeCompleto, 
-    dataNascimento:req.body.dataNascimento,
-    sexo:req.body.sexo, 
+    //dataNascimento:req.body.dataNascimento,
+    //sexo:req.body.sexo, 
     numeroTelefone:req.body.numeroTelefone,
-    pais:req.body.pais,
-    provincia:req.body.provincia, 
-    municipio:req.body.municipio, 
-    endereco:req.body.endereco, 
+    //pais:req.body.pais,
+    //provincia:req.body.provincia, 
+    //municipio:req.body.municipio, 
+    //endereco:req.body.endereco, 
     email:req.body.email,   
     imagem:req.body.imagem,  
-    nomeUsuario:req.body.nomeUsuario, 
+    //nomeUsuario:req.body.nomeUsuario, 
     convidado:req.body.id,
     password:CryptoJS.AES.encrypt(
         req.body.password, process.env.PASS_SEC
@@ -66,16 +66,16 @@ router.post("/registro/estabelecimento", async (req, res)=>{
 
     const newEstabelecimento = new Loja({
         nomeLoja:req.body.nomeLoja, 
-        gerenteLoja:req.body.gerenteLoja, 
+       // gerenteLoja:req.body.gerenteLoja, 
         nifLoja:req.body.nifLoja, 
         emailLoja:req.body.emailLoja, 
         telefoneLoja:req.body.telefoneLoja, 
-        enderecoLoja:req.body.enderecoLoja, 
-        provinciaLoja:req.body.provincia,
-        municipioLoja:req.body.municipio, 
+       //enderecoLoja:req.body.enderecoLoja, 
+       //provinciaLoja:req.body.provincia,
+       //municipioLoja:req.body.municipio, 
         actuacao:req.body.actuacao, 
-        imagem:req.body.imagem, 
-        descricao:req.body.descricao,  
+        //imagem:req.body.imagem, 
+        //descricao:req.body.descricao,  
         password:CryptoJS.AES.encrypt(
             req.body.password, process.env.PASS_SEC
             ).toString()
@@ -100,8 +100,8 @@ router.post("/login/usuario", async (req, res)=>{
     await sleep(tempo);
 
 try{
-    const user = await User.findOne({nomeUsuario : req.body.nomeUsuario});
-    !user &&  res.status(401).send(json({Nome:"Nome Errado"}))
+    const user = await User.findOne({email : req.body.email});
+    !user &&  res.status(401).send(json({Nome:"Email incorreto"}))
 
 const haspass = CryptoJS.AES.decrypt(user.password, process.env.PASS_SEC);
 const Originalpassword = haspass.toString(CryptoJS.enc.Utf8);
