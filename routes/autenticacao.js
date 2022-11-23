@@ -33,16 +33,16 @@ router.post("/registro/usuario", async (req, res)=>{
 
 const newUser = new User({
     nomeCompleto:req.body.nomeCompleto, 
-    //dataNascimento:req.body.dataNascimento,
+    dataNascimento:"und",
     sexo:req.body.sexo, 
     numeroTelefone:req.body.numeroTelefone,
-    //pais:req.body.pais,
-    //provincia:req.body.provincia, 
-    //municipio:req.body.municipio, 
-    //endereco:req.body.endereco, 
+    pais:"und",
+    provincia:"und", 
+    municipio:"und", 
+    endereco:"und", 
     email:req.body.email,   
     imagem:req.body.imagem,  
-    //nomeUsuario:req.body.nomeUsuario, 
+    nomeUsuario:"und", 
     convidado:req.body.id,
     password:CryptoJS.AES.encrypt(
         req.body.password, process.env.PASS_SEC
@@ -66,13 +66,13 @@ router.post("/registro/estabelecimento", async (req, res)=>{
 
     const newEstabelecimento = new Loja({
         nomeLoja:req.body.nomeLoja, 
-       // gerenteLoja:req.body.gerenteLoja, 
+       gerenteLoja:"und", 
         nifLoja:req.body.nifLoja, 
         emailLoja:req.body.emailLoja, 
         telefoneLoja:req.body.telefoneLoja, 
-       //enderecoLoja:req.body.enderecoLoja, 
-       //provinciaLoja:req.body.provincia,
-       //municipioLoja:req.body.municipio, 
+       enderecoLoja:"und", 
+       provinciaLoja:"und",
+       municipioLoja:"und", 
         actuacao:req.body.actuacao, 
         imagem:req.body.imagem, 
         descricao:req.body.descricao,  
@@ -96,11 +96,11 @@ router.post("/registro/estabelecimento", async (req, res)=>{
 //login usuario
 
 router.post("/login/usuario", async (req, res)=>{
-
+console.log(req.body)
     await sleep(tempo);
 
 try{
-    const user = await User.findOne({email : req.body.email});
+    const user = await User.findOne({email : req.body.nomeUsuario});
     !user &&  res.status(401).send(json({Nome:"Email incorreto"}))
 
 const haspass = CryptoJS.AES.decrypt(user.password, process.env.PASS_SEC);

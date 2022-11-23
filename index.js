@@ -19,7 +19,7 @@ dotenv.config();
 
 
 
-  const allowlist = ['https://vandjaline.herokuapp.com', 'https://vandjaline-admin.herokuapp.com', 'https://www.vandjaline.com','http://www.vandjaline.com']
+  const allowlist = ['https://vandjaline.herokuapp.com', 'https://vandjaline-admin.herokuapp.com', 'https://www.vandjaline.com','http://www.vandjaline.com' /*,'http://localhost:3000'*/]
 const corsOptionsDelegate =  (req, callback)=> {
  var corsOpts;
   if (allowlist.indexOf(req.header('Origin')) !== -1) {
