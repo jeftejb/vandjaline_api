@@ -34,7 +34,7 @@ router.post("/registro/usuario", async (req, res)=>{
 const newUser = new User({
     nomeCompleto:req.body.nomeCompleto, 
     //dataNascimento:req.body.dataNascimento,
-    //sexo:req.body.sexo, 
+    sexo:req.body.sexo, 
     numeroTelefone:req.body.numeroTelefone,
     //pais:req.body.pais,
     //provincia:req.body.provincia, 
