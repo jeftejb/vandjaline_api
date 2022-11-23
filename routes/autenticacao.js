@@ -74,8 +74,8 @@ router.post("/registro/estabelecimento", async (req, res)=>{
        //provinciaLoja:req.body.provincia,
        //municipioLoja:req.body.municipio, 
         actuacao:req.body.actuacao, 
-        //imagem:req.body.imagem, 
-        //descricao:req.body.descricao,  
+        imagem:req.body.imagem, 
+        descricao:req.body.descricao,  
         password:CryptoJS.AES.encrypt(
             req.body.password, process.env.PASS_SEC
             ).toString()
