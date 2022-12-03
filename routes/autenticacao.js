@@ -96,7 +96,7 @@ router.post("/registro/estabelecimento", async (req, res)=>{
 //login usuario
 
 router.post("/login/usuario", async (req, res)=>{
-console.log(req.body)
+
     await sleep(tempo);
 
 try{
