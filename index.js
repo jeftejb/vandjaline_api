@@ -19,7 +19,7 @@ dotenv.config();
 
 
 
-  const allowlist = ['https://vandjaline.herokuapp.com', 'https://vandjaline-admin.herokuapp.com', 'https://www.vandjaline.com','http://www.vandjaline.com' /*,'http://localhost:3000'*/]
+  const allowlist = ['https://vandjaline.herokuapp.com', 'https://vandjaline-admin.herokuapp.com', 'https://www.vandjaline.com','http://www.vandjaline.com', ,'http://vandjaline.com' ]
 const corsOptionsDelegate =  (req, callback)=> {
  var corsOpts;
   if (allowlist.indexOf(req.header('Origin')) !== -1) {
@@ -44,6 +44,7 @@ app.use(express.json());
 app.use(cors(corsOptionsDelegate));
 
 /*
+
 app.use((req, res, next)=>{
     res.header('Access-Control-Allow-Origin','*');
     res.header('Access-Control-Allow-Methods', 'GET, PUT, OPTIONS, POST, DELETE, UPDATE');
@@ -73,5 +74,5 @@ app.use("/api/pagamentos", pagamentosRoute);
 app.use("/api/site", siteManage);
 
 app.listen(process.env.PORT|| 8080, ()=>{
-    console.log("Servidor iniciado com sucesso ")
+    console.log("Servidor iniciado com sucesso")
 })

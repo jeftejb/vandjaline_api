@@ -6,8 +6,10 @@ const {sleep}  = require("./temporizador");
 const tempo = 2000;
 //criar
 
-router.post("/",  async (req, res) =>{
+router.post("/cadastro",  async (req, res) =>{
+    console.log(req.body)
 const novoProduto = new Produto(req.body)
+console.log(novoProduto)
 await sleep(tempo);
 try{
 

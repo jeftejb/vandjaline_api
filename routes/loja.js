@@ -27,7 +27,7 @@ try{
 
 
 router.put("/update/pacote/:id" , async (req, res)=>{
-
+    sleep(tempo)
     try{
         const updateLoja = await Loja.findByIdAndUpdate({_id: String(req.params.id)}, {
             $set:req.body

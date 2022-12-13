@@ -9,7 +9,7 @@ const dotenv = require("dotenv");
 const {google} = require("googleapis")
 const {sleep}  = require("./temporizador");
 const SiteManage = require("../models/Site");
-const { env } = require("process");
+
 
 const tempo = 3000;
 
@@ -30,52 +30,50 @@ dotenv.config();
 //const TOKENEMAIL = token_email
 
 router.post("/registro/usuario", async (req, res)=>{
-
-const newUser = new User({
-    nomeCompleto:req.body.nomeCompleto, 
-    dataNascimento:"und",
-    sexo:req.body.sexo, 
-    numeroTelefone:req.body.numeroTelefone,
-    pais:"und",
-    provincia:"und", 
-    municipio:"und", 
-    endereco:"und", 
-    email:req.body.email,   
-    imagem:req.body.imagem,  
-    nomeUsuario:"und", 
-    convidado:req.body.id,
-    password:CryptoJS.AES.encrypt(
-        req.body.password, process.env.PASS_SEC
-        ).toString()
-})
-
-await sleep(tempo);
-
-try{
-const salvarUsuario = await newUser.save()
-res.status(200).json(salvarUsuario)
-}catch(error){res.status(500).json({error})}
-})
+    const newUser = new User({
+        nomeCompleto:req.body.nomeCompleto, 
+        dataNascimento:"und",
+        sexo:req.body.sexo, 
+        numeroTelefone:req.body.numeroTelefone,
+        pais:"und",
+        provincia:"und", 
+        municipio:"und", 
+        endereco:"und", 
+        email:req.body.email,   
+        imagem:req.body.imagem,  
+        nomeUsuario:"und", 
+        convidado:req.body.id,
+        password:CryptoJS.AES.encrypt(
+            req.body.password, process.env.PASS_SEC
+            ).toString()
+    })
+      await sleep(tempo);
+  
+      try{
+      const usuario  = await newUser.save()
+      res.status(200).json(usuario)
+      }catch(error){
+          res.status(500).json({error})
+      }
+      })
 
 
 //Registro estabelecimento
 
 router.post("/registro/estabelecimento", async (req, res)=>{
     
-  
-
     const newEstabelecimento = new Loja({
         nomeLoja:req.body.nomeLoja, 
        gerenteLoja:"und", 
         nifLoja:req.body.nifLoja, 
         emailLoja:req.body.emailLoja, 
         telefoneLoja:req.body.telefoneLoja, 
-       enderecoLoja:"und", 
+       enderecoLoja:req.body.enderecoLoja, 
        provinciaLoja:"und",
        municipioLoja:"und", 
         actuacao:req.body.actuacao, 
         imagem:req.body.imagem, 
-        descricao:req.body.descricao,  
+        descricao:"und",  
         password:CryptoJS.AES.encrypt(
             req.body.password, process.env.PASS_SEC
             ).toString()
