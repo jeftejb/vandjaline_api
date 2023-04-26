@@ -131,7 +131,7 @@ router.get("/:id", async (req, res)=>{
         //todos produtos do campo 
         router.get("/fazenda/todos", async (req, res)=>{
             try{
-                const produto  = await Produto.find({actuacaoLoja : "Fazenda", activo:true})
+                const produto  = await Produto.find({actuacaoLoja:"Fazenda", activo:true})
             res.status(200).json(produto)
             }catch(err){
                 res.status(500).json({err})
