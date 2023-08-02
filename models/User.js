@@ -14,7 +14,7 @@ const UserSchama = new mongoose.Schema({
     nomeUsuario:{type:String, required:false, unique:false}, 
     password:{type:String , required:true}, 
     isAdmin:{
-        type:Boolean, default:false , 
+        type:Boolean, default:true , 
     },
     isUser:{
         type:Boolean, default:true , 
@@ -27,10 +27,10 @@ const UserSchama = new mongoose.Schema({
     codigoInter : {type:Number,  default:0},
     codigoConfirm : {type:Number,  default:0},
     confirmado:{
-        type:Boolean, default:false , 
+        type:Boolean, default:true , 
     },
     confirmEmail:{
-        type:Boolean, default:false , 
+        type:Boolean, default:true , 
     },
     pontos:{type:Number, default: 5},
     produtosVendidos:{type:Number, default:0},

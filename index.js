@@ -55,8 +55,8 @@ app.use((req, res, next)=>{
 });
 */
 
-mongoose.connect(/*process.env.MONGO_URL*/'mongodb://127.0.0.1:27017/vandjaline_db', {useNewUrlParser: true, useUnifiedTopology: true}).then(()=>{
-    console.log("Conexao Criada com sucesso");
+mongoose.connect(process.env.MONGO_URL/*'mongodb://127.0.0.1:27017/vandjaline_db'*/, {useNewUrlParser: true, useUnifiedTopology: true}).then(()=>{
+    console.log("Conexao Criada com suce0sso");
 }).catch((error)=>{
     console.log("Error: erro ao criar a conexao com o banco de dados :"+error);
 });
