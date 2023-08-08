@@ -44,7 +44,6 @@ app.use(express.json());
 app.use(cors(corsOptionsDelegate));
 
 /*
-
 app.use((req, res, next)=>{
     res.header('Access-Control-Allow-Origin','*');
     res.header('Access-Control-Allow-Methods', 'GET, PUT, OPTIONS, POST, DELETE, UPDATE');
@@ -54,13 +53,11 @@ app.use((req, res, next)=>{
     next()
 });
 */
-
 mongoose.connect(process.env.MONGO_URL/*'mongodb://127.0.0.1:27017/vandjaline_db'*/, {useNewUrlParser: true, useUnifiedTopology: true}).then(()=>{
-    console.log("Conexao Criada com suce0sso");
+    console.log("Conexao Criada com sucesso");
 }).catch((error)=>{
     console.log("Error: erro ao criar a conexao com o banco de dados :"+error);
 });
-
 
 app.use("/api/autenticacao", autRoute);
 app.use("/api/users", userRoute);
