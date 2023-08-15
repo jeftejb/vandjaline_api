@@ -11,8 +11,8 @@ const {sleep}  = require("./temporizador");
 const SiteManage = require("../models/Site");
 
 
-const tempo = 3000;
 
+const tempo = 3000;
 //var pdfMake = require('pdfmake/build/pdfmake.js');
 //var pdfFonts = require('pdfmake/build/vfs_fonts.js');
 
@@ -200,7 +200,7 @@ router.post("/email", async (req, res )=>{
     )
     
     autCliente.setCredentials(
-        {  refresh_token: GOODLE_CLIENTE_TOKEN }
+        {  refresh_token: process.env.GOODLE_CLIENTE_TOKEN }
     )
     
     const acessoToken = new Promise((resolve, reject)=>{
@@ -224,7 +224,7 @@ router.post("/email", async (req, res )=>{
                 user: process.env.EMAIL_FROM,
                 clientId: process.env.GOODLE_CLIENTE_ID, acessoToken,
                 clientSecret: process.env.GOODLE_CLIENTE_CHAVE,
-                refreshToken: GOODLE_CLIENTE_TOKEN,
+                refreshToken: process.env.GOODLE_CLIENTE_TOKEN,
                 
             },
           });
@@ -243,7 +243,7 @@ router.post("/email", async (req, res )=>{
             Vandjaline<br/>
             uservandja@gmail.com<br/>
             +244948992170<br/>
-            https://www.vandjaline.com
+            https://vandjaline-site.vercel.app
             </span>
             
             `, // html body
@@ -274,7 +274,7 @@ router.post("/email/confirmacao", async (req, res )=>{
     )
     
     autCliente.setCredentials(
-           {refresh_token: GOODLE_CLIENTE_TOKEN  } 
+           {refresh_token: process.env.GOODLE_CLIENTE_TOKEN  } 
     )
     
     const acessoToken = new Promise((resolve, reject)=>{
@@ -298,7 +298,7 @@ router.post("/email/confirmacao", async (req, res )=>{
                 user: process.env.EMAIL_FROM,
                 clientId: process.env.GOODLE_CLIENTE_ID, acessoToken,
                 clientSecret: process.env.GOODLE_CLIENTE_CHAVE,
-                refreshToken: GOODLE_CLIENTE_TOKEN,
+                refreshToken: process.env.GOODLE_CLIENTE_TOKEN,
                 
             },
           });
@@ -318,7 +318,7 @@ router.post("/email/confirmacao", async (req, res )=>{
             Vandjaline<br/>
             uservandja@gmail.com<br/>
             +244948992170<br/>
-            https://www.vandjaline.com
+            https://vandjaline-site.vercel.app
             </span>
             
             `, // html body
@@ -347,7 +347,7 @@ router.post("/email/recuperacao", async (req, res )=>{
     
     
     autCliente.setCredentials({
-        refresh_token : GOODLE_CLIENTE_TOKEN 
+        refresh_token : process.env.GOODLE_CLIENTE_TOKEN 
     })
     
     const acessoToken = new Promise((resolve, reject)=>{
@@ -371,7 +371,7 @@ router.post("/email/recuperacao", async (req, res )=>{
                 user: process.env.EMAIL_FROM,
                 clientId: process.env.GOODLE_CLIENTE_ID, acessoToken,
                 clientSecret: process.env.GOODLE_CLIENTE_CHAVE,
-                refreshToken: GOODLE_CLIENTE_TOKEN,
+                refreshToken: process.env.GOODLE_CLIENTE_TOKEN,
                 
             },
           });
@@ -392,7 +392,7 @@ router.post("/email/recuperacao", async (req, res )=>{
                 Vandjaline<br/>
                 uservandja@gmail.com<br/>
                 +244948992170<br/>
-                https://www.vandjaline.com
+              https://vandjaline-site.vercel.app
                 </span>
                
                 `, // html body
@@ -426,7 +426,7 @@ router.post("/email/recuperacao/estabelecimento", async (req, res )=>{
     
     
     autCliente.setCredentials({
-        refresh_token : GOODLE_CLIENTE_TOKEN 
+        refresh_token : process.env.GOODLE_CLIENTE_TOKEN 
     })
     
     const acessoToken = new Promise((resolve, reject)=>{
@@ -450,7 +450,7 @@ router.post("/email/recuperacao/estabelecimento", async (req, res )=>{
                 user: process.env.EMAIL_FROM,
                 clientId: process.env.GOODLE_CLIENTE_ID, acessoToken,
                 clientSecret: process.env.GOODLE_CLIENTE_CHAVE,
-                refreshToken: GOODLE_CLIENTE_TOKEN,
+                refreshToken: process.env.GOODLE_CLIENTE_TOKEN,
                 
             },
           });
@@ -471,7 +471,7 @@ router.post("/email/recuperacao/estabelecimento", async (req, res )=>{
                 Vandjaline<br/>
                 uservandja@gmail.com<br/>
                 +244948992170<br/>
-                https://www.vandjaline.com
+              https://vandjaline-site.vercel.app
                 </span>
                 
                 `, // html body
@@ -504,7 +504,7 @@ router.post("/email/pagamento", async (req, res )=>{
     
     
     autCliente.setCredentials({
-        refresh_token : GOODLE_CLIENTE_TOKEN 
+        refresh_token : process.env.GOODLE_CLIENTE_TOKEN 
     })
     
     const acessoToken = new Promise((resolve, reject)=>{
@@ -528,7 +528,7 @@ router.post("/email/pagamento", async (req, res )=>{
                 user: process.env.EMAIL_FROM,
                 clientId: process.env.GOODLE_CLIENTE_ID, acessoToken,
                 clientSecret: process.env.GOODLE_CLIENTE_CHAVE,
-                refreshToken: GOODLE_CLIENTE_TOKEN,
+                refreshToken: process.env.GOODLE_CLIENTE_TOKEN,
                 
             },
           });
@@ -581,7 +581,7 @@ router.post("/email/pagamento", async (req, res )=>{
                    Vandjaline<br/>
                    uservandja@gmail.com<br/>
                    +244948992170<br/>
-                   https://www.vandjaline.com
+                    https://vandjaline-site.vercel.app
                    </span>
                    
                     `, // html body
@@ -610,7 +610,7 @@ router.post("/email/cancela", async (req, res )=>{
     
     
     autCliente.setCredentials({
-        refresh_token : GOODLE_CLIENTE_TOKEN 
+        refresh_token : process.env.GOODLE_CLIENTE_TOKEN 
     })
     
     const acessoToken = new Promise((resolve, reject)=>{
@@ -634,7 +634,7 @@ router.post("/email/cancela", async (req, res )=>{
                 user: process.env.EMAIL_FROM,
                 clientId: process.env.GOODLE_CLIENTE_ID, acessoToken,
                 clientSecret: process.env.GOODLE_CLIENTE_CHAVE,
-                refreshToken: GOODLE_CLIENTE_TOKEN,
+                refreshToken: process.env.GOODLE_CLIENTE_TOKEN,
                 
             },
           });
@@ -655,7 +655,7 @@ router.post("/email/cancela", async (req, res )=>{
             Vandjaline<br/>
             uservandja@gmail.com<br/>
             +244948992170<br/>
-            https://www.vandjaline.com
+           https://vandjaline-site.vercel.app
             </span>
             `, // html body
           });
@@ -689,7 +689,7 @@ router.post("/email/pagamento/loja", async (req, res )=>{
     
     
     autCliente.setCredentials({
-        refresh_token : GOODLE_CLIENTE_TOKEN 
+        refresh_token : process.env.GOODLE_CLIENTE_TOKEN 
     })
     
     const acessoToken = new Promise((resolve, reject)=>{
@@ -713,7 +713,7 @@ router.post("/email/pagamento/loja", async (req, res )=>{
                 user: process.env.EMAIL_FROM,
                 clientId: process.env.GOODLE_CLIENTE_ID, acessoToken,
                 clientSecret: process.env.GOODLE_CLIENTE_CHAVE,
-                refreshToken: GOODLE_CLIENTE_TOKEN,
+                refreshToken: process.env.GOODLE_CLIENTE_TOKEN,
                 
             },
           });
@@ -737,7 +737,7 @@ router.post("/email/pagamento/loja", async (req, res )=>{
             Vandjaline<br/>
             uservandja@gmail.com<br/>
             +244948992170<br/>
-            https://www.vandjaline.com
+          https://vandjaline-site.vercel.app
             </span>
            
             `, // html body
@@ -771,7 +771,7 @@ router.post("/email/link/loja", async (req, res )=>{
     
     
     autCliente.setCredentials({
-        refresh_token : GOODLE_CLIENTE_TOKEN 
+        refresh_token : process.env.GOODLE_CLIENTE_TOKEN 
     })
     
     const acessoToken = new Promise((resolve, reject)=>{
@@ -795,7 +795,7 @@ router.post("/email/link/loja", async (req, res )=>{
                 user: process.env.EMAIL_FROM,
                 clientId: process.env.GOODLE_CLIENTE_ID, acessoToken,
                 clientSecret: process.env.GOODLE_CLIENTE_CHAVE,
-                refreshToken: GOODLE_CLIENTE_TOKEN,
+                refreshToken: process.env.GOODLE_CLIENTE_TOKEN,
                 
             },
           });
@@ -821,7 +821,7 @@ router.post("/email/link/loja", async (req, res )=>{
             Vandjaline<br/>
             uservandja@gmail.com<br/>
             +244948992170<br/>
-            https://www.vandjaline.com
+           https://vandjaline-site.vercel.app
             </span>
             `, // html body
           });

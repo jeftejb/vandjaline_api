@@ -18,12 +18,12 @@ const cors = require("cors");
 dotenv.config();
 
 
-
-  const allowlist = ['https://vandjaline-site.vercel.app', 'https://vandjaline-admin.vercel.app', 'https://www.vandjaline.com','http://www.vandjaline.com', ,'http://vandjaline.com', 'http://localhost:3000', 'http://localhost:3001']
+/*
+  const allowlist = ['https://vandjaline-site.vercel.app', 'https://vandjaline-site-git-master-jeftejb.vercel.app', 'https://vandjaline-site-pc756tm2t-jeftejb.vercel.app','https://vandjaline-site-fs2r00eij-jeftejb.vercel.app']
 const corsOptionsDelegate =  (req, callback)=> {
  var corsOpts;
-  if (allowlist.indexOf(req.header('Origin')) !== -1) {
-    corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
+  if (allowlist.indexOf(req.header('origin')) == -1) {
+    corsOpts = { origin: true } // reflect (enable) the requested origin in the CORS response
  corsOpts = {
     origin: true,
   
@@ -39,11 +39,8 @@ const corsOptionsDelegate =  (req, callback)=> {
   callback(null,  corsOpts) // callback expects two parameters: error and options
 }
 
-  
-app.use(express.json());
-app.use(cors(corsOptionsDelegate));
 
-/*
+
 app.use((req, res, next)=>{
     res.header('Access-Control-Allow-Origin','*');
     res.header('Access-Control-Allow-Methods', 'GET, PUT, OPTIONS, POST, DELETE, UPDATE');
@@ -53,6 +50,13 @@ app.use((req, res, next)=>{
     next()
 });
 */
+
+
+app.use(cors( { "key": "Access-Control-Allow-Origin", "value": "*" }));
+app.use(express.json());
+
+
+
 mongoose.connect(process.env.MONGO_URL/*'mongodb://127.0.0.1:27017/vandjaline_db'*/, {useNewUrlParser: true, useUnifiedTopology: true}).then(()=>{
     console.log("Conexao Criada com sucesso");
 }).catch((error)=>{
